@@ -1,54 +1,60 @@
 {
-  "name": "vite-cms",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "element-plus": "2.2.18",
-    "vue": "3.2.37",
-    "vue-router": "4.1.5"
-  },
-  "devDependencies": {
-    "@types/node": "18.11.0",
-    "@vitejs/plugin-vue": "3.1.0",
-    "@typescript-eslint/eslint-plugin": "^5.40.0",
-    "@typescript-eslint/parser": "^5.40.0",
-    "@vue/eslint-config-prettier": "^7.0.0",
-    "@vue/eslint-config-typescript": "^11.0.2",
-    "eslint": "^8.25.0",
-    "prettier": "^2.7.1",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-vue": "^9.6.0",
-    "vue-eslint-parser": "^9.1.0",
-    "typescript": "4.6.4",
-    "vite": "3.1.0",
-    "vue-tsc": "0.40.4"
-  },
-  "lint-staged": {
-    "*.{js,jsx,vue,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{scss,less,css,html,md}": [
-      "prettier --write"
-    ],
-    "package.json": [
-      "prettier --write"
-    ],
-    "{!(package)*.json,.!(browserslist)*rc}": [
-      "prettier --write--parser json"
-    ]
-  },
-  "keywords": [
-    "vue",
-    "element-plus",
-    "vue3",
-    "ts",
-    "admin",
-    "typescript"
-  ],
-  "license": "MIT"
+	"name": "vite-cms",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "vite",
+		"build": "vue-tsc --noEmit && vite build",
+		"preview": "vite preview",
+		"lint": "pnpm lint:eslint && pnpm lint:prettier",
+		"lint:eslint": "eslint \"src/**/*.{vue,ts,tsx}\" --fix",
+		"lint:prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
+		"prepare": "husky install"
+	},
+	"dependencies": {
+		"element-plus": "2.2.18",
+		"vue": "3.2.37",
+		"vue-router": "4.1.5"
+	},
+	"devDependencies": {
+		"@types/node": "18.11.0",
+		"@typescript-eslint/eslint-plugin": "^5.40.0",
+		"@typescript-eslint/parser": "^5.40.0",
+		"@vitejs/plugin-vue": "3.1.0",
+		"@vue/eslint-config-prettier": "^7.0.0",
+		"@vue/eslint-config-typescript": "^11.0.2",
+		"eslint": "^8.25.0",
+		"eslint-plugin-prettier": "^4.2.1",
+		"eslint-plugin-vue": "^9.6.0",
+		"husky": "^8.0.1",
+		"lint-staged": "^13.0.3",
+		"prettier": "^2.7.1",
+		"typescript": "4.6.4",
+		"vite": "3.1.0",
+		"vue-eslint-parser": "^9.1.0",
+		"vue-tsc": "0.40.4"
+	},
+	"lint-staged": {
+		"*.{js,jsx,vue,ts,tsx}": [
+			"eslint --fix",
+			"prettier --write"
+		],
+		"*.{scss,less,css,html,md}": [
+			"prettier --write"
+		],
+		"package.json": [
+			"prettier --write"
+		],
+		"{!(package)*.json,.!(browserslist)*rc}": [
+			"prettier --write--parser json"
+		]
+	},
+	"keywords": [
+		"vue",
+		"element-plus",
+		"vue3",
+		"ts",
+		"admin",
+		"typescript"
+	],
+	"license": "MIT"
 }
