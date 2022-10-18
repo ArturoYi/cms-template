@@ -1,0 +1,18 @@
+root = true
+# root：表明是最顶层的配置文件，发现设为 true 时，才会停止查找 .editorconfig
+[*]
+charset = utf-8
+# 编码类型，可以是 latin1、utf-8、utf-8-bom、utf-16be 和 utf-16le。不建议使用 utf-8-bom。
+indent_style = space
+# 缩进风格，可以是 tab 或者 space，对应 hard tabs 和 soft tabshard-tabs 是硬件 tab，就是按一个 tab 键，soft-tabs 是软件 tab，通过按 4 个 space 键实现。
+indent_size = 2
+# 缩进的宽度，即列数，必须是整数。
+end_of_line = lf
+# :换行符，lf、cr 或者 crlf
+insert_final_newline = true
+# 设为 true; 以确保文件在保存时以换行结束
+trim_trailing_whitespace = true
+
+[*.md]
+insert_final_newline = false
+trim_trailing_whitespace = false

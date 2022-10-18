@@ -1,9 +1,11 @@
 {
 	"name": "vite-cms",
 	"version": "0.0.1",
+	"description": "基于 Vue3、TypeScript、Pinia 和 Vite 等主流技术的cms解決方案",
 	"scripts": {
 		"dev": "vite",
-		"build": "vue-tsc --noEmit && vite build",
+		"build:dev": "vue-tsc --noEmit && vite build --mode development",
+		"build:prod": "vue-tsc --noEmit && vite build",
 		"preview": "vite preview",
 		"lint": "pnpm lint:eslint && pnpm lint:prettier",
 		"lint:eslint": "eslint \"src/**/*.{vue,ts,tsx}\" --fix",
@@ -12,12 +14,12 @@
 		"commit": "git-cz"
 	},
 	"dependencies": {
-		"vue": "3.2.37"
+		"vue": "3.2.41"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^17.1.2",
 		"@commitlint/config-conventional": "^17.1.0",
-		"@types/node": "18.11.0",
+		"@types/node": "18.8.0",
 		"@typescript-eslint/eslint-plugin": "^5.40.0",
 		"@typescript-eslint/parser": "^5.40.0",
 		"@vitejs/plugin-vue": "3.1.0",
@@ -57,7 +59,7 @@
 			"path": "node_modules/cz-customizable"
 		},
 		"cz-customizable": {
-			"config": "commitlint.config.js"
+			"config": "commitlint.config.cjs"
 		}
 	},
 	"keywords": [

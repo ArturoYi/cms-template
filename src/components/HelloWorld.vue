@@ -3,11 +3,15 @@ import { ref } from "vue";
 
 defineProps<{ msg: string }>();
 
-const count = ref(1);
+const count = ref(0);
+
+const handleLogin = () => {
+	count.value++;
+};
 </script>
 
 <template>
-	<el-button type="primaey" plain>{{ count++ }}</el-button>
+	<button type="button" @click="handleLogin">{{ count }}</button>
 </template>
 
 <style scoped>
