@@ -1,0 +1,6 @@
+// .stylelintignore
+/dist/*
+/public/*
+public/*
+*.js
+*.tsx
