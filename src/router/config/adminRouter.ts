@@ -4,7 +4,9 @@ export const adminRouter: RouteRecordRaw[] = [
 	{
 		path: "/admin",
 		component: () => import("@/views/admin/index.vue"),
-		meta: {},
+		meta: {
+			roles: ["admin"]
+		},
 		children: [
 			{
 				path: "/admin/index",

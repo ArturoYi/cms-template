@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
 import type { RouteRecordRaw } from "vue-router";
 const Layout = () => import("@/layout/index.vue");
+import homeRouter from "@/router/permission/home-router";
 
 /**基本路由 */
 export const baseRouter: RouteRecordRaw[] = [
@@ -29,12 +30,20 @@ export const baseRouter: RouteRecordRaw[] = [
 					svgIcon: "dashboard",
 					affix: true
 				}
-			}
+			},
+			...homeRouter
 		]
 	},
 	{
 		path: "/login",
 		component: () => import("@/views/login/index.vue"),
+		meta: {
+			hidden: true
+		}
+	},
+	{
+		path: "/:pathMatch(.*)*",
+		component: () => import("@/views/error/404.vue"),
 		meta: {
 			hidden: true
 		}

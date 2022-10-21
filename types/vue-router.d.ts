@@ -23,6 +23,10 @@ declare module "vue-router" {
      */
     roles?: string[]
     /**
+     * 路由權限
+     */
+     permissions?:object[]
+    /**
      * 默认 true，如果设置为 false，则不会在面包屑中显示
      */
     breadcrumb?: boolean

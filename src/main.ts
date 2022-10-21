@@ -1,6 +1,8 @@
 import { createApp } from "vue";
 import "./style.css";
 import App from "./App.vue";
+// pinia
+import store from "./store";
 // 路由和守衛
 import router from "./router";
 import "@/router/guard";
@@ -10,5 +12,5 @@ import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
 /** Element-Plus 全局使用 */
 app.use(ElementPlus);
-
-app.use(router).mount("#app");
+//vu官方的在下面鏈式調用
+app.use(store).use(router).mount("#app");

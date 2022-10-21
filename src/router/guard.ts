@@ -1,5 +1,4 @@
 import router from "@/router";
-
 router.beforeEach(async (to, form, next) => {
 	/**
 	 * 正常我們只需要做兩件事

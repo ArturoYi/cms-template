@@ -1,6 +1,7 @@
 import { loadEnv, ConfigEnv, UserConfigExport } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
+// import UnoCSS from "unocss/vite";
 
 // https://vitejs.dev/config/
 export default (configEnv: ConfigEnv): UserConfigExport => {
@@ -39,6 +40,7 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
 			assetsDir: "static"
 		},
 		//viter插件
+		// UnoCSS()
 		plugins: [vue()]
 	};
 };
