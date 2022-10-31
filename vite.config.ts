@@ -1,11 +1,12 @@
 import { loadEnv, ConfigEnv, UserConfigExport } from "vite";
 import vue from "@vitejs/plugin-vue";
-import { resolve } from "path";
+import path, { resolve } from "path";
+import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
+import svgLoader from "vite-svg-loader";
 // import UnoCSS from "unocss/vite";
 
 // https://vitejs.dev/config/
 export default (configEnv: ConfigEnv): UserConfigExport => {
-	//
 	const viteEnv = loadEnv(configEnv.mode, process.cwd()) as ImportMetaEnv;
 	const { VITE_PUBLIC_PATH } = viteEnv;
 	return <UserConfigExport>{
@@ -35,12 +36,20 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
 					//删除注释
 					comments: true
 				}
-			},
+			}
 			/** 打包后静态资源目录,慎重配置 */
-			assetsDir: "static"
+			// assetsDir: "static"
 		},
 		//viter插件
 		// UnoCSS()
-		plugins: [vue()]
+		plugins: [
+			vue() /** 将 SVG 静态图转化为 Vue 组件 */,
+			svgLoader(),
+			/** SVG */
+			createSvgIconsPlugin({
+				iconDirs: [path.resolve(process.cwd(), "src/icons/svg")],
+				symbolId: "icon-[dir]-[name]"
+			})
+		]
 	};
 };

@@ -4,14 +4,32 @@ export const adminRouter: RouteRecordRaw[] = [
 	{
 		path: "/admin",
 		component: () => import("@/views/admin/index.vue"),
+		name: "indx-1",
 		meta: {
-			roles: ["admin"]
+			elIcon: "CirclePlus",
+			title: "管理员",
+			roles: ["admin"],
+			permissions: ["管理员"]
 		},
 		children: [
 			{
 				path: "/admin/index",
 				component: () => import("@/views/admin/index.vue"),
-				meta: {}
+				name: "indx-2",
+				meta: {
+					elIcon: "CirclePlus",
+					title: "管理员2",
+					permissions: []
+				}
+			},
+			{
+				path: "/admin/index2",
+				component: () => import("@/views/admin/index.vue"),
+				name: "indx-3",
+				meta: {
+					title: "管理员3",
+					permissions: []
+				}
 			}
 		]
 	}

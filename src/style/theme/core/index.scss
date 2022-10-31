@@ -1,0 +1,7 @@
+.#{$theme-name} {
+	@import "./layout";
+	@import "./login";
+	@import "./error-page";
+	@import "./element-plus";
+	@import "./other";
+}

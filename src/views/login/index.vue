@@ -1,46 +1,34 @@
 <script lang="ts" setup>
-import router from "@/router";
-import root from "@/api/module/root";
-import { userStore } from "@/store/modules/user";
-import localStorage from "@/utils/cache/localStorage";
+import { useUserStore } from "@/store/modules/user";
+// import { getCurrentInstance } from "vue";
+// import { usePermissionStore } from "@/store/modules/permission";
+import { useRouter } from "vue-router";
+const router = useRouter();
 const handle = () => {
 	router.push({ path: "/" });
 };
 
-const handleLogin = () => {
-	root
-		.getToken({ username: "root", password: "123456" })
-		.then((success) => {
-			localStorage.set("access_token", "Bearer " + success.data.data.access_token);
-			localStorage.set("refresh_toke", "Bearer " + success.data.data.refresh_token);
-		})
-		.catch((error) => {
-			console.log(error);
-		})
-		.finally(() => {
-			handlePermission();
-		});
+const userStore = useUserStore();
+
+const handleLogin = async () => {
+	await userStore.login();
+	await userStore.setInfo();
+};
+const handles = () => {
+	console.log(userStore.userinfo);
 };
 
-const handlePermission = () => {
-	root
-		.getInfo()
-		.then((success) => {
-			userStore().setInfo(success.data.data);
-		})
-		.catch((error) => {
-			console.log(error);
-		});
-};
-const handleinfo = () => {
-	const res = userStore().userinfo;
-	console.log(res);
+// const { proxy }: any = getCurrentInstance();
+const bash = () => {
+	// usePermissionStore().getRoutes(userStore.userinfo.admin, userStore.userinfo.permissions);
+	// console.log(usePermissionStore().getRoutes(userStore().userinfo.admin, userStore().userinfo.permissions));
 };
 </script>
 <template>
 	<div>
 		<el-button @click="handle">12</el-button>
 		<el-button @click="handleLogin">12</el-button>
-		<el-button @click="handleinfo">12</el-button>
+		<el-button @click="handles">查看pinia</el-button>
+		<el-button @click="bash">查看路由</el-button>
 	</div>
 </template>

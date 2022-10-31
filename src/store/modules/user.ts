@@ -2,42 +2,74 @@ import { reactive, ref } from "vue";
 import store from "@/store";
 import { defineStore } from "pinia";
 import { Root } from "@/type/module/roottype";
-import localStorage from "@/utils/cache/localStorage";
-import lodash from "@/utils/loadsh-es";
-export const userStore = defineStore(
-	"user",
-	() => {
-		const roles = ref<string[]>([]);
-		const userinfo = reactive<Root>({
-			id: 0,
-			admin: false,
-			avatar: "",
-			email: "",
-			nickname: "",
-			permissions: []
-		});
-		/** 设置角色数组 */
-		const setRoles = (value: string[]) => {
-			roles.value = value;
-		};
-		/** 設置用戶信息*/
-		const setInfo = (info: Root) => {
-			localStorage.set("userinfo", userinfo);
-			userinfo.id = info.id;
-			userinfo.admin = info.admin;
-			userinfo.avatar = info.avatar;
-			userinfo.email = info.email;
-			userinfo.nickname = info.nickname;
-			userinfo.permissions = info.permissions;
-			console.log(JSON.stringify(lodash.cloneDeep(userinfo)));
-			localStorage.set("userinfo", JSON.stringify(lodash.cloneDeep(userinfo)));
-		};
-		return { roles, userinfo, setRoles, setInfo };
-	},
-	{ persist: true }
-);
+import root from "@/api/module/root";
+import { setAccessToken, setRefreshToken, suportLocalstorage, getUserInfo, setUserInfo, getIsLoged, setIsLoged } from "@/utils/cache/localStorage";
+export const useUserStore = defineStore("user", () => {
+	const logined = ref<boolean>(false);
+	const userinfo = reactive<Root["userInfo"]>({
+		id: 0,
+		admin: false,
+		avatar: "",
+		email: "",
+		nickname: "",
+		permissions: []
+	});
+	/** 把登录请求写在这里方便全局状态管理*/
+	const login = async () => {
+		await root
+			.getToken({ username: "root", password: "123456" })
+			.then((res) => {
+				setAccessToken(res.data.data.access_token);
+				setRefreshToken(res.data.data.refresh_token);
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+	};
+	/** 設置用戶信息*/
+	const setInfo = async () => {
+		await root
+			.getInfo()
+			.then((res) => {
+				userinfo.id = res.data.data.id;
+				userinfo.admin = res.data.data.admin;
+				userinfo.avatar = res.data.data.avatar;
+				userinfo.email = res.data.data.email;
+				userinfo.nickname = res.data.data.nickname;
+				userinfo.permissions = res.data.data.permissions;
+				logined.value = true;
+				setUserInfo(userinfo);
+				setIsLoged(true);
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+	};
+
+	// 推出登录
+	const loginOut = () => {};
+	//虽然可以直接使用pinia获取上面的职，但是习惯还是写两个get和set方法调用
+	/** 设置角色数组 */
+	/** 設置用戶信息*/
+	return { userinfo, logined, setInfo, login, loginOut };
+});
+// 监听更改_持久化
+// useUserStore(store).$subscribe((_, store) => {
+// 	console.log("持久化");
+// 	localStorage.set("userinfo", JSON.stringify(lodash.cloneDeep(store.userinfo)));
+// 	localStorage.set("logined", JSON.stringify(lodash.cloneDeep(store.logined)));
+// });
+// 初始化数据
+if (suportLocalstorage()) {
+	// if (typeof getUserInfo() === "string") {
+	useUserStoreHook().userinfo = getUserInfo() as Root["userInfo"];
+	// }
+	// if(){
+	useUserStoreHook().logined = getIsLoged();
+	// }
+}
 
 /** 在 setup 外使用 */
 export function useUserStoreHook() {
-	return userStore(store);
+	return useUserStore(store);
 }

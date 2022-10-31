@@ -1,0 +1,12 @@
+/* stylelint-disable scss/no-global-function-names */
+
+/** Login 页面相关 */
+
+.login-container {
+	// color: $font-color;
+	background-color: $theme-bg-color;
+
+	.login-card {
+		background-color: lighten($theme-bg-color, 4%) !important;
+	}
+}

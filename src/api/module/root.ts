@@ -1,4 +1,4 @@
-import _axios from "@/api/axios/index";
+import { request } from "@/api/axios/index";
 
 type LoginType = {
 	username: string;
@@ -7,19 +7,26 @@ type LoginType = {
 
 class Root {
 	// 登錄獲取token
-	async getToken(params: LoginType) {
-		const res = await _axios.post("tranbiot-core/cms/user/login", params);
-		return res;
+	async getToken(data: LoginType) {
+		return request({
+			url: "tranbiot-core/cms/user/login",
+			method: "post",
+			data: data
+		});
 	}
 	// 獲取用戶信息
 	async getInfo() {
-		const res = await _axios.get("tranbiot-core/cms/user/permissions");
-		return res;
+		return request({
+			url: "tranbiot-core/cms/user/permissions",
+			method: "get"
+		});
 	}
 	// 獲取用戶的權限組
 	async getPermissions() {
-		const res = await _axios.get("tranbiot-core/cms/user/permissions");
-		return res;
+		return request({
+			url: "tranbiot-core/cms/user/permissions",
+			method: "get"
+		});
 	}
 	// 獲取所有權限分組
 }

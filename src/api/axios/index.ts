@@ -1,67 +1,58 @@
 // index.ts
-import axios from "axios";
-import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
-import localStorage from "@/utils/cache/localStorage";
-type Result<T> = {
-	code: number;
-	message: string;
-	result: T;
-	data: T;
-};
-class Request {
-	// axios 实例
-	instance: AxiosInstance;
-	// 基础配置，url和超时时间
-	baseConfig: AxiosRequestConfig = {
-		baseURL: import.meta.env.VITE_BASE_API,
-		timeout: 60000,
-		headers: {
-			// 携带 Token
-			Authorization: localStorage.get("access_token") ? (localStorage.get("access_token") as string) : ""
-			// "Content-Type": "" //get(config, "headers.Content-Type", "application/json")
+import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse } from "axios";
+// setAccessToken, getRefreshToken, setRefreshToken
+import { getAccessToken } from "@/utils/cache/localStorage";
+// import { get } from "lodash-es";
+// type Result<T> = {
+// 	code: number;
+// 	message: string;
+// 	result: T;
+// 	data: T;
+// };
+
+/** 创建请求实例 */
+function createService() {
+	// 创建一个 Axios 实例
+	const service = axios.create();
+	// 请求拦截-添加token不在这里
+	service.interceptors.request.use(
+		(config) => {
+			console.log(config);
+			return config;
+		},
+		// 发送失败
+		(error) => Promise.reject(error)
+	);
+	// 响应拦截（可根据具体业务作出相应的调整）
+	service.interceptors.response.use(
+		(response: AxiosResponse) => {
+			return response;
+		},
+		(error) => {
+			return error;
 		}
-	};
-	constructor(config: AxiosRequestConfig) {
-		// 使用axios.create创建axios实例，配置为基础配置和我们传递进来的配置
-		this.instance = axios.create(Object.assign(this.baseConfig, config));
-		// 請求攔截
-		this.instance.interceptors.request.use(
-			(config: AxiosRequestConfig) => {
-				return config;
-			},
-			(error: any) => {
-				return Promise.reject(error);
-			}
-		);
-		//響應攔截
-		this.instance.interceptors.response.use(
-			(res: AxiosResponse) => {
-				return Promise.resolve(res);
-			},
-			(error: any) => {
-				return Promise.reject(error);
-			}
-		);
-	}
-	// 定义请求方法
-	public request(config: AxiosRequestConfig): Promise<AxiosResponse> {
-		return this.instance.request(config);
-	}
-	public get<T = any>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<Result<T>>> {
-		return this.instance.get(url, config);
-	}
-
-	public post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<AxiosResponse<Result<T>>> {
-		return this.instance.post(url, data, config);
-	}
-
-	public put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<AxiosResponse<Result<T>>> {
-		return this.instance.put(url, data, config);
-	}
-
-	public delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<Result<T>>> {
-		return this.instance.delete(url, config);
-	}
+	);
+	return service;
 }
 
-export default new Request({});
+/** 创建请求的方法*/
+function createRequestFunction(service: AxiosInstance) {
+	return function (config: AxiosRequestConfig) {
+		const configDefault = {
+			headers: {
+				// 携带 Token
+				Authorization: "Bearer " + getAccessToken()
+				// "Content-Type": get(config, "headers.Content-Type", "application/json")
+			},
+			timeout: 5000,
+			baseURL: import.meta.env.VITE_BASE_API,
+			data: {}
+		};
+		return service(Object.assign(configDefault, config));
+	};
+}
+
+/** 用于网络请求的实例——自定义config */
+export const service = createService();
+/** 用于网络请求的方法 */
+export const request = createRequestFunction(service);

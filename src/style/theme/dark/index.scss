@@ -1,0 +1,4 @@
+@use "./variables" as *;
+
+// 沒明確的主題不能具名引入
+@import "../core/index";

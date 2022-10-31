@@ -1,3 +1,3 @@
 <template>
-	<div>122</div>
+	<div class="app-container">122</div>
 </template>

@@ -1,7 +1,12 @@
 <script setup lang="ts">
-import zhCn from "element-plus/lib/locale/lang/zh-cn";
-/** 将 Element-Plus 的语言设置为中文 */
-const locale = zhCn;
+import { useTheme } from "@/hooks/useTheme";
+import { useLang } from "@/hooks/useLang";
+// 初始化语言
+const { initLang, locale } = useLang();
+initLang();
+const { initTheme } = useTheme();
+/** 初始化主题 */
+initTheme();
 </script>
 
 <template>

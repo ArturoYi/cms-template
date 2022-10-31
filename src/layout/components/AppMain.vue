@@ -7,9 +7,35 @@ const key = computed(() => {
 });
 </script>
 <template>
-	<router-view v-slot="{ Component }">
-		<transition>
-			<component :is="Component" :key="key" />
-		</transition>
-	</router-view>
+	<section class="app-main">
+		<router-view v-slot="{ Component }">
+			<transition name="fade-transform" mode="out-in">
+				<component :is="Component" :key="key" />
+			</transition>
+		</router-view>
+	</section>
 </template>
+<style scoped lang="scss">
+.app-main {
+	position: relative;
+	overflow: hidden !important;
+	width: 100%;
+	min-height: calc(100vh - var(--v3-navigationbar-height));
+}
+
+.fixed-header + .app-main {
+	overflow: auto;
+	padding-top: var(--v3-navigationbar-height);
+	height: 100vh;
+}
+
+.has-tags-view {
+	.app-main {
+		min-height: calc(100vh - var(--v3-header-height));
+	}
+
+	.fixed-header + .app-main {
+		padding-top: var(--v3-header-height);
+	}
+}
+</style>

@@ -8,7 +8,9 @@ export const baseRouter: RouteRecordRaw[] = [
 	{
 		path: "/redirect",
 		component: Layout,
-		meta: {},
+		meta: {
+			permissions: []
+		},
 		children: [
 			{
 				path: "/redirect/:path(.*)",
@@ -29,6 +31,7 @@ export const baseRouter: RouteRecordRaw[] = [
 					title: "首页",
 					svgIcon: "dashboard",
 					affix: true
+					// permissions: []
 				}
 			},
 			...homeRouter
@@ -38,14 +41,16 @@ export const baseRouter: RouteRecordRaw[] = [
 		path: "/login",
 		component: () => import("@/views/login/index.vue"),
 		meta: {
-			hidden: true
+			hidden: true,
+			permissions: []
 		}
 	},
 	{
 		path: "/:pathMatch(.*)*",
 		component: () => import("@/views/error/404.vue"),
 		meta: {
-			hidden: true
+			hidden: true,
+			permissions: []
 		}
 	}
 ];

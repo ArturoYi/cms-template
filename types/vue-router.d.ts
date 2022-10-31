@@ -25,7 +25,7 @@ declare module "vue-router" {
     /**
      * 路由權限
      */
-     permissions?:object[]
+     permissions?:string[]
     /**
      * 默认 true，如果设置为 false，则不会在面包屑中显示
      */

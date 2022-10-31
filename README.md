@@ -2,6 +2,10 @@
 
 # 推荐使用 pnpm
 
+# 简繁体转换在线
+
+https://jf.xmu.edu.cn/online.html
+
 # package.json
 
 ```json

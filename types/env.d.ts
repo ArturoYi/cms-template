@@ -6,3 +6,9 @@ declare interface ImportMetaEnv {
   readonly VITE_ROUTER_HISTORY: "hash" | "html5"
   readonly VITE_PUBLIC_PATH: string
 }
+
+declare module "*.vue" {
+  import { DefineComponent } from "vue"
+  const component: DefineComponent<{}, {}, any>
+  export default component
+}
