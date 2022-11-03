@@ -3,22 +3,22 @@
 /** dark 主题下的变量 */
 
 // 主题名称
-$theme-name: "dark-blue";
+$theme-name: "normal";
 
 // 主题背景颜色
-$theme-bg-color: #021633;
+$theme-bg-color: #f6f7fb;
 
 // active 状态下主题背景颜色
 // $active-theme-bg-color: #01efb7bb;
 
 // 默认文字颜色
-$font-color: #ffffffee;
+$font-color: #333333 global;
 
 // active 状态下文字颜色
-$active-font-color: #ffffff;
+$active-font-color: #0062ff;
 
 // hover 状态下文字颜色
-$hover-color: #ffffff;
+$hover-color: rgb(0 98 255 / 20%);
 
 // 边框颜色
-$border-color: #01efb755;
+$border-color: #e4e4e4;

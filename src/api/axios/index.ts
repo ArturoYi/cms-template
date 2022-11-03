@@ -2,7 +2,8 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse } from "axios";
 // setAccessToken, getRefreshToken, setRefreshToken
 import { getAccessToken } from "@/utils/cache/localStorage";
-// import { get } from "lodash-es";
+import { get } from "lodash-es";
+import { ElMessage } from "element-plus";
 // type Result<T> = {
 // 	code: number;
 // 	message: string;
@@ -26,6 +27,7 @@ function createService() {
 	// 响应拦截（可根据具体业务作出相应的调整）
 	service.interceptors.response.use(
 		(response: AxiosResponse) => {
+			ElMessage.success("请求成功");
 			return response;
 		},
 		(error) => {
@@ -41,8 +43,8 @@ function createRequestFunction(service: AxiosInstance) {
 		const configDefault = {
 			headers: {
 				// 携带 Token
-				Authorization: "Bearer " + getAccessToken()
-				// "Content-Type": get(config, "headers.Content-Type", "application/json")
+				Authorization: "Bearer " + getAccessToken(),
+				"Content-Type": get(config, "headers.Content-Type", "application/json")
 			},
 			timeout: 5000,
 			baseURL: import.meta.env.VITE_BASE_API,

@@ -2,6 +2,7 @@
 import router from "@/router";
 import { useAppStore } from "@/store/modules/app";
 import { ref } from "vue";
+// import { storeToRefs } from 'pinia'
 const appStore = useAppStore();
 const handleLogin = () => {
 	router.push({ path: "/login" });

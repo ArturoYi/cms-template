@@ -57,7 +57,7 @@ export const hasPermission = (permissions: permissions[], route: RouteRecordRaw)
 	}
 };
 // 判断有没有该角色路由权限
-const hasRole = (permissions: permissions[], route: RouteRecordRaw) => {
+export const hasRole = (permissions: permissions[], route: RouteRecordRaw) => {
 	const roles: string[] = getPermissionRoleGroup(permissions).roles;
 	if (route.meta && route.meta.permissions && route.meta.permissions.length > 0) {
 		return roles.some((role) => {
@@ -72,7 +72,7 @@ const hasRole = (permissions: permissions[], route: RouteRecordRaw) => {
 	}
 };
 // 筛选路由
-const filterAsyncRoutes = (routes: RouteRecordRaw[], permission: permissions[]) => {
+export const filterAsyncRoutes = (routes: RouteRecordRaw[], permission: permissions[]) => {
 	const res: RouteRecordRaw[] = [];
 	routes.forEach((route) => {
 		const r = { ...route };
@@ -99,12 +99,16 @@ export const useRolesStore = defineStore("roles", () => {
 		}
 		routes.value = accessedRoutes;
 		dynamicRoutes.value = accessedRoutes;
-		return routes.value;
+		return accessedRoutes;
 	};
 	return { routes, dynamicRoutes, getRoutes };
 });
 
 /** 在 setup 外使用 */
 export function useRolesStoreHook() {
-	return useRolesStore(store);
+	if (useRolesStore(store) !== null) {
+		return useRolesStore(store);
+	} else {
+		return null;
+	}
 }

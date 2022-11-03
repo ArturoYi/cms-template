@@ -3,6 +3,7 @@ import store from "@/store";
 import { defineStore } from "pinia";
 import { Root } from "@/type/module/roottype";
 import root from "@/api/module/root";
+import router from "@/router";
 import { setAccessToken, setRefreshToken, suportLocalstorage, getUserInfo, setUserInfo, getIsLoged, setIsLoged } from "@/utils/cache/localStorage";
 export const useUserStore = defineStore("user", () => {
 	const logined = ref<boolean>(false);
@@ -46,8 +47,10 @@ export const useUserStore = defineStore("user", () => {
 			});
 	};
 
-	// 推出登录
-	const loginOut = () => {};
+	// 退出登录
+	const loginOut = () => {
+		router.go(0);
+	};
 	//虽然可以直接使用pinia获取上面的职，但是习惯还是写两个get和set方法调用
 	/** 设置角色数组 */
 	/** 設置用戶信息*/
@@ -61,15 +64,15 @@ export const useUserStore = defineStore("user", () => {
 // });
 // 初始化数据
 if (suportLocalstorage()) {
-	// if (typeof getUserInfo() === "string") {
-	useUserStoreHook().userinfo = getUserInfo() as Root["userInfo"];
-	// }
-	// if(){
-	useUserStoreHook().logined = getIsLoged();
-	// }
+	useUserStore(store).userinfo = getUserInfo() as Root["userInfo"];
+	useUserStore(store).logined = getIsLoged();
 }
 
 /** 在 setup 外使用 */
 export function useUserStoreHook() {
-	return useUserStore(store);
+	if (useUserStore(store) !== null) {
+		return useUserStore(store);
+	} else {
+		return null;
+	}
 }

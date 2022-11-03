@@ -2,6 +2,11 @@
 
 /** Layout 相关 */
 
+* {
+	// 使用默认主题色文字
+	color: $font-color;
+}
+
 .app-wrapper {
 	color: $font-color;
 	background-color: $theme-bg-color;
@@ -26,8 +31,14 @@
 			}
 		}
 
-		.el-sub-menu__title {
-			background-color: lighten($theme-bg-color, 4%) !important;
+		.el-sub-menu {
+			&.is-active {
+				.el-sub-menu__title {
+					border-left: 5px solid $active-font-color;
+					color: $active-font-color !important;
+					background-color: lighten($theme-bg-color, 4%) !important;
+				}
+			}
 		}
 	}
 
@@ -55,7 +66,8 @@
 			&.active {
 				border-color: $border-color !important;
 				color: $active-font-color !important;
-				background-color: $active-theme-bg-color !important;
+
+				// background-color: $active-theme-bg-color !important;
 			}
 		}
 

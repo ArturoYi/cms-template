@@ -1,5 +1,4 @@
 import { createApp } from "vue";
-// import "./style.css";
 import App from "./App.vue";
 // pinia
 import store from "./store";
@@ -7,11 +6,12 @@ import store from "./store";
 import router from "./router";
 import "@/router/guard";
 const app = createApp(App);
-// 自定义样式
-import "@/style/index.scss";
 // 样式引入
+import "@/style/index.scss";
+import "uno.css";
 import "element-plus/dist/index.css";
 import "element-plus/theme-chalk/dark/css-vars.css";
+// import "@/style/index.scss";
 // load
 import { loadSvg } from "@/icons";
 /** 加载全局 SVG */

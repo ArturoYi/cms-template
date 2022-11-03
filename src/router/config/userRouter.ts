@@ -3,7 +3,7 @@ import type { RouteRecordRaw } from "vue-router";
 export const userRouter: RouteRecordRaw[] = [
 	{
 		path: "/user",
-		component: () => import("@/views/user/index.vue"),
+		redirect: "/user/index",
 		name: "user",
 		meta: {
 			elIcon: "CirclePlus",

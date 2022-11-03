@@ -1,2 +1,3 @@
-@use "./dark/index" as *;
-@use "./dark-blue/index" as *;
+@import "./dark/index";
+@import "./dark-blue/index";
+@import "./default/index";

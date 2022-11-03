@@ -3,7 +3,7 @@ import vue from "@vitejs/plugin-vue";
 import path, { resolve } from "path";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import svgLoader from "vite-svg-loader";
-// import UnoCSS from "unocss/vite";
+import UnoCSS from "unocss/vite";
 
 // https://vitejs.dev/config/
 export default (configEnv: ConfigEnv): UserConfigExport => {
@@ -36,9 +36,16 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
 					//删除注释
 					comments: true
 				}
-			}
+			},
 			/** 打包后静态资源目录,慎重配置 */
 			// assetsDir: "static"
+			rollupOptions: {
+				output: {
+					chunkFileNames: "js/[name]-[hash].js",
+					entryFileNames: "js/[name]-[hash].js",
+					assetFileNames: "[ext]/[name]-[hash].[ext]"
+				}
+			}
 		},
 		//viter插件
 		// UnoCSS()
@@ -49,7 +56,8 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
 			createSvgIconsPlugin({
 				iconDirs: [path.resolve(process.cwd(), "src/icons/svg")],
 				symbolId: "icon-[dir]-[name]"
-			})
+			}),
+			UnoCSS()
 		]
 	};
 };

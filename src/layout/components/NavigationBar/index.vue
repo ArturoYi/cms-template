@@ -9,6 +9,7 @@ import Breadcrumb from "../Breadcrumb/index.vue";
 import Hamburger from "../Hamburger/index.vue";
 import ThemeSwitch from "@/components/ThemeSwitch/index.vue";
 import LangSwitch from "@/components/LangSwitch/index.vue";
+import PersonalCenter from "@/components/PersonalCenter/index.vue";
 // import Screenfull from "@/components/Screenfull/index.vue";
 
 // 注冊
@@ -45,6 +46,7 @@ const toggleSidebar = () => {
 		<div class="right-menu">
 			<ThemeSwitch v-if="showThemeSwitch" class="right-menu-item" />
 			<LangSwitch />
+			<PersonalCenter />
 		</div>
 	</div>
 </template>

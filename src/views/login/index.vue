@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { useUserStore } from "@/store/modules/user";
+import { useRolesStore } from "@/store/modules/roles";
+// import { resetRouter } from "@/router/index";
 // import { getCurrentInstance } from "vue";
 // import { usePermissionStore } from "@/store/modules/permission";
 import { useRouter } from "vue-router";
@@ -9,10 +11,13 @@ const handle = () => {
 };
 
 const userStore = useUserStore();
+const rolesStore = useRolesStore();
 
 const handleLogin = async () => {
 	await userStore.login();
 	await userStore.setInfo();
+	rolesStore.getRoutes(userStore.userinfo.admin, userStore.userinfo.permissions);
+	router.go(0);
 };
 const handles = () => {
 	console.log(userStore.userinfo);
@@ -25,7 +30,7 @@ const bash = () => {
 };
 </script>
 <template>
-	<div>
+	<div unocss-z-index-1>
 		<el-button @click="handle">12</el-button>
 		<el-button @click="handleLogin">12</el-button>
 		<el-button @click="handles">查看pinia</el-button>

@@ -1,4 +1,4 @@
-import { request } from "@/api/axios/service";
+import { request } from "@/api/axios/index";
 
 export interface ILoginData {
 	/** admin 或 editor */

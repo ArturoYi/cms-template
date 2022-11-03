@@ -1,7 +1,28 @@
+// 这里最好用use的，一位多个地方重复import了
+// @import "@/style/theme/index";
 @mixin clearfix {
 	&::after {
 		content: "";
 		display: table;
 		clear: both;
+	}
+}
+
+// 文字溢出隐藏
+@mixin showline($line: 2) {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	-webkit-line-clamp: $line;
+	-webkit-box-orient: vertical;
+}
+
+// 鼠标悬停
+@mixin ishover {
+	cursor: pointer;
+	color: $font-color;
+
+	&:hover {
+		color: $active-font-color;
 	}
 }

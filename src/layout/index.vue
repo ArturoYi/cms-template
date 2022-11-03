@@ -50,9 +50,8 @@ const fixedHeader = computed(() => {
 	</div>
 </template>
 <style scoped lang="scss">
-@use "@/style/mixins/mixins" as *;
-
-// @import "@/style/mixins/mixins.scss";
+// @use "@/style/mixins/mixins" as *;
+@import "@/style/mixins/mixins";
 
 .app-wrapper {
 	@include clearfix;

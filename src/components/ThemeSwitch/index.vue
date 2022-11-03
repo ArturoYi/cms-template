@@ -13,7 +13,7 @@ const handleSetTheme = (name: ThemeName) => {
 	<el-dropdown trigger="click" @command="handleSetTheme">
 		<div>
 			<el-tooltip effect="dark" content="主题模式" placement="bottom">
-				<el-icon :size="20">
+				<el-icon :size="26">
 					<MagicStick />
 				</el-icon>
 			</el-tooltip>

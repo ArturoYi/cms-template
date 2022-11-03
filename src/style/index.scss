@@ -1,11 +1,11 @@
 // 样式重置
-@use "./reset/reset" as *;
-
-// 全局 CSS 变量
-@use "./variables.scss" as *;
+@import "./reset/reset";
 
 // Transition
-@use "./transition" as *;
+@import "./transition";
+
+// 全局 CSS 变量
+@import "./variables.css";
 
 // 核心主題顔色——基本不變
 // 主题
@@ -22,7 +22,7 @@ html {
 
 body {
 	height: 100%;
-	font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+	font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimSun, sans-serif;
 	background-color: var(--v3-body-bg-color);
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;

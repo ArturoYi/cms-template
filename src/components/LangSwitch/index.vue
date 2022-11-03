@@ -12,7 +12,7 @@ const handleSetLang = (name: LangName) => {
 	<el-dropdown trigger="click" @command="handleSetLang">
 		<div>
 			<el-tooltip effect="dark" content="语言" placement="bottom">
-				<el-icon :size="20">
+				<el-icon :size="26">
 					<Orange />
 				</el-icon>
 			</el-tooltip>

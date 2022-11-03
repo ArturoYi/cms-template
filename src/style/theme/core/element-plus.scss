@@ -1,3 +1,5 @@
+/* stylelint-disable selector-type-no-unknown */
+/* stylelint-disable selector-pseudo-class-no-unknown */
 /* stylelint-disable scss/no-global-function-names */
 
 /** Element-Plus 相关 */
@@ -13,7 +15,8 @@
 			background-color: lighten($theme-bg-color, 4%) !important;
 
 			&.is-active,
-			&:hover {
+			&:hover,
+			&:focus {
 				color: $active-font-color !important;
 				background-color: lighten($theme-bg-color, 8%) !important;
 			}
