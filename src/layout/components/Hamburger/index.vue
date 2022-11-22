@@ -3,6 +3,11 @@
  * @User: Chen
  * @Date: 2022-10-27 13:35:11
 -->
+<script lang="ts">
+export default {
+	name: "Hamburger"
+};
+</script>
 <script lang="ts" setup>
 import { Expand, Fold } from "@element-plus/icons-vue";
 

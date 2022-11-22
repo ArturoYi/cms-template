@@ -44,7 +44,7 @@ const isCollapse = computed(() => {
 		<SidebarLogo v-if="showSidebarLogo" :collapse="isCollapse" />
 		<el-scrollbar wrap-class="scrollbar-wrapper">
 			<el-menu :default-active="activeMenu" :collapse="isCollapse" :unique-opened="true" :collapse-transition="false" mode="vertical">
-				<SidebarItemVue v-for="route in rolesStore.dynamicRoutes" :key="route.path" :item="route" :base-path="route.path" :is-collapse="isCollapse" />
+				<SidebarItemVue v-for="route in rolesStore.setRoutes()" :key="route.path" :item="route" :base-path="route.path" :is-collapse="isCollapse" />
 			</el-menu>
 		</el-scrollbar>
 	</div>

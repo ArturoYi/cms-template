@@ -16,8 +16,8 @@ const rolesStore = useRolesStore();
 const handleLogin = async () => {
 	await userStore.login();
 	await userStore.setInfo();
-	rolesStore.getRoutes(userStore.userinfo.admin, userStore.userinfo.permissions);
-	router.go(0);
+	rolesStore.setRoutes();
+	router.push({ path: "/" });
 };
 const handles = () => {
 	console.log(userStore.userinfo);

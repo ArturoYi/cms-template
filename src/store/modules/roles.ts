@@ -1,6 +1,7 @@
 import { ref } from "vue";
 import store from "@/store";
 import { defineStore } from "pinia";
+import { useUserStore } from "./user";
 import type { RouteRecordRaw } from "vue-router";
 import allRouter from "@/router/config/index";
 
@@ -24,21 +25,23 @@ type permissions = {
 export const getPermissionRoleGroup = (permissions: permissions[]): RoleResult => {
 	const roles: string[] = []; //角色权限
 	const permission: string[] = []; //操作权限
-	permissions.map((item) => {
-		for (const group in item) {
-			if (isValidKey(group, item)) {
-				for (const role of Object.keys(item[group])) {
-					const p = item[group][role] as permissionsChild;
-					if (!roles.includes(p.permission)) {
-						permission.push(p.permission);
-					}
-					if (!permission.includes(p.module)) {
-						roles.push(p.module);
+	if (permission.length !== 0) {
+		permissions.map((item) => {
+			for (const group in item) {
+				if (isValidKey(group, item)) {
+					for (const role of Object.keys(item[group])) {
+						const p = item[group][role] as permissionsChild;
+						if (!roles.includes(p.permission)) {
+							permission.push(p.permission);
+						}
+						if (!permission.includes(p.module)) {
+							roles.push(p.module);
+						}
 					}
 				}
 			}
-		}
-	});
+		});
+	}
 	return { roles, permission };
 };
 // 判断有没有这个操作的权限，先调用上面的函数
@@ -85,10 +88,25 @@ export const filterAsyncRoutes = (routes: RouteRecordRaw[], permission: permissi
 	});
 	return res;
 };
+// 筛选拥有得权限路由
+export const filterAsyncPath = (routes: RouteRecordRaw[], permission: permissions[]) => {
+	const path: string[] = [];
+	routes.forEach((route) => {
+		const r = { ...route };
+		if (hasRole(permission, r)) {
+			if (r.children) {
+				path.push(...filterAsyncPath(r.children, permission));
+			}
+			path.push(r.path);
+		}
+	});
+	return path;
+};
 
 export const useRolesStore = defineStore("roles", () => {
 	const routes = ref<RouteRecordRaw[]>([]);
 	const dynamicRoutes = ref<RouteRecordRaw[]>([]);
+	const path = ref<string[]>([]);
 
 	const getRoutes = (admin: boolean, permission: permissions[]) => {
 		let accessedRoutes;
@@ -101,14 +119,32 @@ export const useRolesStore = defineStore("roles", () => {
 		dynamicRoutes.value = accessedRoutes;
 		return accessedRoutes;
 	};
-	return { routes, dynamicRoutes, getRoutes };
+	const setRoutes = () => {
+		if (!useUserStore().logined) {
+			useUserStore().setInfo();
+		}
+		let accessedRoutes;
+		if (useUserStore().userinfo.admin) {
+			accessedRoutes = allRouter;
+		} else {
+			accessedRoutes = filterAsyncRoutes(allRouter, useUserStore().userinfo.permissions);
+		}
+		routes.value = accessedRoutes;
+		dynamicRoutes.value = accessedRoutes;
+		return accessedRoutes;
+	};
+	const getRoutesPath = () => {
+		path.value = filterAsyncPath(allRouter, useUserStore().userinfo.permissions);
+		return path.value;
+	};
+	return { routes, dynamicRoutes, getRoutes, setRoutes, getRoutesPath };
 });
 
 /** 在 setup 外使用 */
 export function useRolesStoreHook() {
-	if (useRolesStore(store) !== null) {
-		return useRolesStore(store);
-	} else {
-		return null;
-	}
+	// if (useRolesStore(store) !== null) {
+	return useRolesStore(store);
+	// } else {
+	// 	return null;
+	// }
 }

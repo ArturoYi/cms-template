@@ -33,6 +33,7 @@
 		"src/**/*.tsx",
 		"src/**/*.vue",
 		//下面兩個是自定義的
+    "src/**/**/*.d.ts",
 		"types/**/*.d.ts",
 		"vite.config.ts"
 	],

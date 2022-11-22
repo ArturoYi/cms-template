@@ -20,8 +20,9 @@ const logout = () => {
 };
 </script>
 <template>
-	<div>
-		<el-dropdown popper-class="e-dropdown" @visible-change="popoverShow" :show-arrow="false" placement="bottom-start">
+	<div class="aaa">
+		<!-- <img src="../../assets/layout/corner.png" class="corner" /> -->
+		<el-dropdown popper-class="el-dropdown" @visible-change="popoverShow" :show-arrow="false" placement="bottom-start">
 			<div ml-5 mr-5 w-50 h-15 flex justify-center items-center>
 				<el-avatar :src="userStore.userinfo.avatar" />
 				<div class="nickname" flex h-15 w-30 justify-end items-center>
@@ -30,7 +31,7 @@ const logout = () => {
 				</div>
 			</div>
 			<template #dropdown>
-				<div w-120 h-70 class="user-option">
+				<div class="user-option">
 					<div class="user-option-top" w-120 h-35 flex justify-center items-center>
 						<el-avatar :size="66" :src="userStore.userinfo.avatar" />
 						<div w-70 class="item-nickname">{{ userStore.userinfo.nickname }}</div>
@@ -66,13 +67,36 @@ const logout = () => {
 	}
 }
 
+.corner {
+	position: fixed;
+
+	// position: absolute;
+	top: calc(var(--v3-header-height) - var(--v3-tagsview-height));
+	right: 90px;
+	z-index: 999 !important;
+	width: 27px;
+	height: 10px;
+}
+
 .user-option {
-	border-radius: 10px;
+	position: relative;
+	/* stylelint-disable-next-line scss/double-slash-comment-whitespace-inside */
+	width: 30rem; //120px
+	@media (min-height: 17.5rem) {
+		height: 17.5rem !important;
+	}
+	@media (max-height: 17.5rem) {
+		height: 8.75rem !important;
+	}
+
+	// w-120 h-70
 
 	.user-option-top {
+		color: aliceblue;
+		background-size: 100% 100%;
 		border-top-right-radius: 8px;
 		border-top-left-radius: 8px;
-		background-color: rgb(178 178 178);
+		background-image: url("../../assets/layout/user-bg.png");
 
 		.item-nickname {
 			padding-left: 18px;
@@ -96,6 +120,22 @@ const logout = () => {
 			line-height: 20px;
 			@include ishover;
 		}
+	}
+}
+</style>
+<style lang="scss">
+.el-dropdown {
+	.el-popper__arrow::before {
+		top: -8px !important;
+		z-index: 1 !important;
+		border: none !important;
+		width: 45px !important;
+		height: 15px !important;
+		background: none !important;
+		background-size: 100% 100%;
+		background-color: none !important;
+		background-image: url("../../assets/layout/corner.png") !important;
+		transform: none !important;
 	}
 }
 </style>

@@ -34,9 +34,9 @@
 		.el-sub-menu {
 			&.is-active {
 				.el-sub-menu__title {
-					border-left: 5px solid $active-font-color;
+					border-left: 3px solid $active-font-color !important;
 					color: $active-font-color !important;
-					background-color: lighten($theme-bg-color, 4%) !important;
+					background-color: lighten($active-font-color, 46%) !important;
 				}
 			}
 		}

@@ -2,9 +2,10 @@ import { reactive, ref } from "vue";
 import store from "@/store";
 import { defineStore } from "pinia";
 import { Root } from "@/type/module/roottype";
-import root from "@/api/module/root";
+import root from "@/api/module/admin/admin";
 import router from "@/router";
-import { setAccessToken, setRefreshToken, suportLocalstorage, getUserInfo, setUserInfo, getIsLoged, setIsLoged } from "@/utils/cache/localStorage";
+// suportLocalstorage, getUserInfo, setUserInfo, getIsLoged, setIsLoged
+import { getAccessToken, getRefreshToken, setAccessToken, setRefreshToken } from "@/utils/cache/localStorage";
 export const useUserStore = defineStore("user", () => {
 	const logined = ref<boolean>(false);
 	const userinfo = reactive<Root["userInfo"]>({
@@ -27,28 +28,24 @@ export const useUserStore = defineStore("user", () => {
 				console.error(err);
 			});
 	};
-	/** 設置用戶信息*/
+	/** 設置用戶信息——这个方法可能会经常用到*/
 	const setInfo = async () => {
-		await root
-			.getInfo()
-			.then((res) => {
-				userinfo.id = res.data.data.id;
-				userinfo.admin = res.data.data.admin;
-				userinfo.avatar = res.data.data.avatar;
-				userinfo.email = res.data.data.email;
-				userinfo.nickname = res.data.data.nickname;
-				userinfo.permissions = res.data.data.permissions;
-				logined.value = true;
-				setUserInfo(userinfo);
-				setIsLoged(true);
-			})
-			.catch((error) => {
-				console.error(error);
-			});
+		if (!logined.value) {
+			const result = await root.getInfo();
+			userinfo.id = result.data.id;
+			userinfo.admin = result.data.admin;
+			userinfo.avatar = result.data.avatar;
+			userinfo.email = result.data.email;
+			userinfo.nickname = result.data.nickname;
+			userinfo.permissions = result.data.permissions;
+			logined.value = true;
+			return true;
+		}
 	};
 
 	// 退出登录
 	const loginOut = () => {
+		localStorage.clear();
 		router.go(0);
 	};
 	//虽然可以直接使用pinia获取上面的职，但是习惯还是写两个get和set方法调用
@@ -56,23 +53,13 @@ export const useUserStore = defineStore("user", () => {
 	/** 設置用戶信息*/
 	return { userinfo, logined, setInfo, login, loginOut };
 });
-// 监听更改_持久化
-// useUserStore(store).$subscribe((_, store) => {
-// 	console.log("持久化");
-// 	localStorage.set("userinfo", JSON.stringify(lodash.cloneDeep(store.userinfo)));
-// 	localStorage.set("logined", JSON.stringify(lodash.cloneDeep(store.logined)));
-// });
-// 初始化数据
-if (suportLocalstorage()) {
-	useUserStore(store).userinfo = getUserInfo() as Root["userInfo"];
-	useUserStore(store).logined = getIsLoged();
+// 初始化数据-这一步不是必须的，甚至hui
+if (typeof getAccessToken() === "string" && typeof getRefreshToken() === "string") {
+	useUserStore(store).setInfo();
+} else {
+	console.log("退出登录");
 }
-
 /** 在 setup 外使用 */
 export function useUserStoreHook() {
-	if (useUserStore(store) !== null) {
-		return useUserStore(store);
-	} else {
-		return null;
-	}
+	return useUserStore(store);
 }

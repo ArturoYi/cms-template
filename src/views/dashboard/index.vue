@@ -2,6 +2,7 @@
 import router from "@/router";
 import { useAppStore } from "@/store/modules/app";
 import { ref } from "vue";
+import TinymceVue from "@/components/Base/Tinymce/Tinymce.vue";
 // import { storeToRefs } from 'pinia'
 const appStore = useAppStore();
 const handleLogin = () => {
@@ -43,5 +44,6 @@ const options = [
 		<el-select v-model="value" class="m-2" size="large">
 			<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
 		</el-select>
+		<TinymceVue />
 	</div>
 </template>

@@ -4,7 +4,9 @@ import path, { resolve } from "path";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import svgLoader from "vite-svg-loader";
 import UnoCSS from "unocss/vite";
-
+// 压缩打包
+import viteCompression from "vite-plugin-compression";
+const Timestamp = new Date().getTime();
 // https://vitejs.dev/config/
 export default (configEnv: ConfigEnv): UserConfigExport => {
 	const viteEnv = loadEnv(configEnv.mode, process.cwd()) as ImportMetaEnv;
@@ -41,9 +43,9 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
 			// assetsDir: "static"
 			rollupOptions: {
 				output: {
-					chunkFileNames: "js/[name]-[hash].js",
-					entryFileNames: "js/[name]-[hash].js",
-					assetFileNames: "[ext]/[name]-[hash].[ext]"
+					chunkFileNames: `js/[name]-[hash]-${Timestamp}.js`,
+					entryFileNames: `js/[name]-[hash]-${Timestamp}.js`,
+					assetFileNames: `[ext]/[name]-[hash]-${Timestamp}.[ext]`
 				}
 			}
 		},
@@ -57,7 +59,10 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
 				iconDirs: [path.resolve(process.cwd(), "src/icons/svg")],
 				symbolId: "icon-[dir]-[name]"
 			}),
-			UnoCSS()
+			UnoCSS(),
+			viteCompression({
+				threshold: 1024000 // 对大于 1mb 的文件进行压缩
+			})
 		]
 	};
 };

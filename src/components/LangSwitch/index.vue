@@ -1,5 +1,10 @@
+<script lang="ts">
+export default {
+	name: "LangSwitch"
+};
+</script>
 <script setup lang="ts">
-import { type LangName, useLang } from "@/hooks/useLang";
+import { LangName, useLang } from "@/hooks/useLang";
 import { Orange } from "@element-plus/icons-vue";
 const { langList, activeLangName, setHtmlLangName } = useLang();
 

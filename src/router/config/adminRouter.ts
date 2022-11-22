@@ -27,6 +27,7 @@ export const adminRouter: RouteRecordRaw[] = [
 				component: () => import("@/views/admin/index.vue"),
 				name: "indx-3",
 				meta: {
+					elIcon: "CirclePlus",
 					title: "管理员3",
 					permissions: []
 				}

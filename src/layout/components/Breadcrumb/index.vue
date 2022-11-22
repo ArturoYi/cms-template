@@ -3,6 +3,11 @@
  * @User: Chen
  * @Date: 2022-10-27 13:35:52
 -->
+<script lang="ts">
+export default {
+	name: "Breadcrumb"
+};
+</script>
 <script lang="ts" setup>
 import { ref, watch } from "vue";
 import { RouteLocationMatched, useRoute, useRouter } from "vue-router";

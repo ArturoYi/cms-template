@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AppMain, NavigationBar, Settings, Sidebar, TagsView, RightPanel } from "./components/index";
+import { AppMain, NavigationBar, Sidebar, TagsView /**RightPanel,Settings*/ } from "./components/index";
 import { computed } from "vue";
 import { useSettingsStore } from "@/store/modules/settings";
 import { useAppStore, DeviceType } from "@/store/modules/app";
@@ -23,9 +23,9 @@ const handleClickOutside = () => {
 };
 
 // 设置
-const showSettings = computed(() => {
-	return settingsStore.showSettings;
-});
+// const showSettings = computed(() => {
+// 	return settingsStore.showSettings;
+// });
 const showTagsView = computed(() => {
 	return settingsStore.showTagsView;
 });
@@ -43,9 +43,9 @@ const fixedHeader = computed(() => {
 				<TagsView v-if="showTagsView" />
 			</div>
 			<AppMain />
-			<RightPanel v-if="showSettings">
+			<!-- <RightPanel v-if="showSettings">
 				<Settings />
-			</RightPanel>
+			</RightPanel> -->
 		</div>
 	</div>
 </template>

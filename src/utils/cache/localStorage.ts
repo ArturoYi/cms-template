@@ -48,24 +48,25 @@ export const getAccessToken = () => {
 		return localStorage.getItem(CacheKey.ACCESS_TOKEN);
 	} else {
 		console.error("浏览器不支持localStorage");
+		return "Bearn NosuportLocalstorage";
 	}
 };
 
 export const setAccessToken = (access_token: string) => {
 	if (suportLocalstorage()) {
-		localStorage.setItem(CacheKey.ACCESS_TOKEN, access_token);
+		localStorage.setItem(CacheKey.ACCESS_TOKEN, "Bearer " + access_token);
 	}
 };
 
 export const getRefreshToken = () => {
 	if (suportLocalstorage()) {
-		return localStorage.getItem(CacheKey.ACCESS_TOKEN);
+		return localStorage.getItem(CacheKey.REFRESH_TOKEN);
 	}
 };
 
 export const setRefreshToken = (refresh_token: string) => {
 	if (suportLocalstorage()) {
-		localStorage.setItem(CacheKey.REFRESH_TOKEN, refresh_token);
+		localStorage.setItem(CacheKey.REFRESH_TOKEN, "Bearer " + refresh_token);
 	}
 };
 

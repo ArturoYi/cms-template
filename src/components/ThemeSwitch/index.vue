@@ -1,5 +1,10 @@
+<script lang="ts">
+export default {
+	name: "ThemeSwitch"
+};
+</script>
 <script lang="ts" setup>
-import { type ThemeName, useTheme } from "@/hooks/useTheme";
+import { ThemeName, useTheme } from "@/hooks/useTheme";
 import { MagicStick } from "@element-plus/icons-vue";
 
 const { themeList, activeThemeName, setTheme } = useTheme();

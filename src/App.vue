@@ -1,4 +1,5 @@
 <script setup lang="ts">
+/** app.vue最好只放一些必要得hooks*/
 import { useTheme } from "@/hooks/useTheme";
 import { useLang } from "@/hooks/useLang";
 import { nextTick, provide, ref } from "vue";
