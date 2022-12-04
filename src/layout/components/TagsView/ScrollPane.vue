@@ -1,3 +1,9 @@
+<script lang="ts">
+export default {
+	name: "ScrollPane"
+};
+</script>
+
 <script lang="ts" setup>
 import { ref } from "vue";
 import { ElScrollbar } from "element-plus";

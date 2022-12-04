@@ -15,7 +15,7 @@ const messages = {
 };
 //创建实例
 const i18n = createI18n({
-	// locale: "en", //读取本地存储的语言
+	locale: "en", //读取本地存储的语言
 	legacy: false,
 	// DateTimeFormats: {},
 	// numberFormats: {},

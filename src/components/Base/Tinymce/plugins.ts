@@ -1,3 +1,4 @@
+import "tinymce/icons/default/icons";
 import "tinymce/plugins/image"; // 插入上传图片插件
 import "tinymce/plugins/importcss"; //图片工具
 import "tinymce/plugins/media"; // 插入视频插件
@@ -15,3 +16,7 @@ import "tinymce/plugins/save"; // 保存
 import "tinymce/plugins/searchreplace"; //查询替换
 import "tinymce/plugins/pagebreak"; //分页
 import "tinymce/plugins/insertdatetime"; //时间插入
+/**
+ * 引入不知插件
+ * */
+// import "tinymce/plugins/blod";

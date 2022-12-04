@@ -6,3 +6,10 @@ export interface AdminLoginType {
 	username: string;
 	password: string;
 }
+
+export interface GroupType {
+	id: number;
+	name: string;
+	info: string;
+	level: string;
+}

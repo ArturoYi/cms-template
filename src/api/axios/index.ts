@@ -1,30 +1,21 @@
 // index.ts
 import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse, type AxiosError } from "axios";
 // setAccessToken, getRefreshToken, setRefreshToken
-import { setAccessToken, getAccessToken, setRefreshToken, getRefreshToken } from "@/utils/cache/localStorage";
-// import { useUserStoreHook } from "@/store/modules/user";
-// const userStore = useUserStoreHook();
+import { getAccessToken, getRefreshToken } from "@/utils/cache/localStorage";
 import { get } from "lodash-es";
 import { resultType } from "@/api";
 // import { ElMessage } from "element-plus";
-// import { responseInterceptors } from "./interceptors/res";
+import { responseInterceptors } from "./interceptors/res";
 import { requestInterceptors } from "./interceptors/req";
-import Admin from "../module/admin/admin";
-// type Result<T> = {
-// 	code: number;
-// 	message: string;
-// 	result: T;
-// 	data: T;
-// };
+// import Admin from "../module/admin/admin";
 
 /** 创建请求实例 */
-function createService() {
+function createService<T>() {
 	// 创建一个 Axios 实例
 	const service = axios.create();
 	// 请求拦截-添加token不在这里
 	service.interceptors.request.use(
 		(config) => {
-			console.log(config);
 			config = requestInterceptors(config);
 			return config;
 		},
@@ -33,54 +24,26 @@ function createService() {
 	);
 	// 响应拦截（可根据具体业务作出相应的调整）
 	service.interceptors.response.use(
-		(response: AxiosResponse<resultType>) => {
-			const { config, data } = response;
+		async (response: AxiosResponse<resultType<T>>) => {
 			// 成功的请求
 			if (response.status.toString().charAt(0) === "2") {
 				return response;
 			}
-			// 在错误范围的请求
-			// eslint-disable-next-line no-async-promise-executor
-			return new Promise(async (resolve) => {
-				// 我们必须要先判断是否是refreshToken也过期，否则会无限循环刷新
-				const isCode: number[] = [1000, 1041, 1051, 1050, 1052, 1003, 1001, 1042];
-				if (isCode.includes(data.code)) {
-					if (config.url !== "tranbiot-core/cms/user/refresh") {
-						const refreshResult = await Admin.refreshToken();
-						setAccessToken(refreshResult.data.data.access_token);
-						setRefreshToken(refreshResult.data.data.refresh_token);
-						// if (response.config.method === "get") {
-						// 	response.config.data = { unused: 0 };
-						// }
-						service.defaults.headers!.Authorization = refreshResult.data.data.access_token;
-						response.config.headers!.Authorization = refreshResult.data.data.access_token;
-						const result = await service.request({
-							baseURL: import.meta.env.VITE_BASE_API,
-							url: response.config.url,
-							method: response.config.method,
-							data: response.config.data,
-							params: response.config.params
-						});
-						return resolve(result);
-					} else {
-						console.log("登录过期");
-					}
-				}
-			});
-			// response = responseInterceptors(response, service);
-			return response;
+			// 在错误范围的请求——主要为刷新token
+			return await responseInterceptors(response);
 		},
-		(error: AxiosError<resultType>) => {
+		(error: AxiosError<resultType<any>>) => {
 			console.log(error);
 			return error;
 		}
 	);
 	return service;
 }
-
+/** 用于网络请求的实例——自定义config */
+export const service = createService<any>();
 /** 创建请求的方法*/
-function createRequestFunction(service: AxiosInstance) {
-	return function (config: AxiosRequestConfig) {
+export function createRequestFunction<T = any>(service: AxiosInstance) {
+	return function (config: AxiosRequestConfig): Promise<AxiosResponse<resultType<T>, any>> {
 		const configDefault: AxiosRequestConfig = {
 			headers: {
 				// 携带 Token
@@ -103,8 +66,9 @@ function createRequestFunction(service: AxiosInstance) {
 		return service(Object.assign(configDefault, config));
 	};
 }
-
-/** 用于网络请求的实例——自定义config */
-export const service = createService();
+/** 这个只是折中办法,多了一步，并不好，但是这样是为了响应结果自定义 */
+export function typeRequest<T>() {
+	return createRequestFunction<T>(service);
+}
 /** 用于网络请求的方法 */
-export const request = createRequestFunction(service);
+export const request = createRequestFunction<any>(service);

@@ -1,5 +1,6 @@
 import { ref } from "vue";
 import { getActiveThemeName, setActiveThemeName } from "@/utils/cache/localStorage";
+import { ElMessage } from "element-plus";
 
 interface IThemeList {
 	title: string;
@@ -36,6 +37,11 @@ const setTheme = (value: ThemeName) => {
 	activeThemeName.value = value;
 	setHtmlClassName(activeThemeName.value);
 	setActiveThemeName(value);
+	ElMessage({
+		message: "切换主题成功",
+		type: "success",
+		duration: 800
+	});
 };
 
 /** 在 html 根元素上挂载 class */

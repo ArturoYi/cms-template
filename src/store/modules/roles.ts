@@ -137,6 +137,7 @@ export const useRolesStore = defineStore("roles", () => {
 		path.value = filterAsyncPath(allRouter, useUserStore().userinfo.permissions);
 		return path.value;
 	};
+	console.log(routes.value, path.value);
 	return { routes, dynamicRoutes, getRoutes, setRoutes, getRoutesPath };
 });
 

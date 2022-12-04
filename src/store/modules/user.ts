@@ -46,7 +46,7 @@ export const useUserStore = defineStore("user", () => {
 	// 退出登录
 	const loginOut = () => {
 		localStorage.clear();
-		router.go(0);
+		router.push({ path: "/login", replace: true });
 	};
 	//虽然可以直接使用pinia获取上面的职，但是习惯还是写两个get和set方法调用
 	/** 设置角色数组 */
@@ -57,7 +57,7 @@ export const useUserStore = defineStore("user", () => {
 if (typeof getAccessToken() === "string" && typeof getRefreshToken() === "string") {
 	useUserStore(store).setInfo();
 } else {
-	console.log("退出登录");
+	// console.log("退出登录");
 }
 /** 在 setup 外使用 */
 export function useUserStoreHook() {

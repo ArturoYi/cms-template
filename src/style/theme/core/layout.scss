@@ -2,11 +2,6 @@
 
 /** Layout 相关 */
 
-* {
-	// 使用默认主题色文字
-	color: $font-color;
-}
-
 .app-wrapper {
 	color: $font-color;
 	background-color: $theme-bg-color;
@@ -36,7 +31,7 @@
 				.el-sub-menu__title {
 					border-left: 3px solid $active-font-color !important;
 					color: $active-font-color !important;
-					background-color: lighten($active-font-color, 46%) !important;
+					background-color: lighten($side-bar-bg, 46%);
 				}
 			}
 		}

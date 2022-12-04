@@ -19,6 +19,7 @@ export default defineConfig({
 	 * 目前，只把unocss用于页面布局单位，不用于主题（虽然试过可以，但关乎主题会比较庞大）
 	 */
 	rules: [
+		["uno-center", { "text-align": "center", "margin-left": "50%", transform: "translateX(-25%)" }],
 		["uno-padding-20", { padding: "20px" }],
 		// 外边距
 		// 其他

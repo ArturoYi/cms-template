@@ -11,7 +11,18 @@ const Timestamp = new Date().getTime();
 export default (configEnv: ConfigEnv): UserConfigExport => {
 	const viteEnv = loadEnv(configEnv.mode, process.cwd()) as ImportMetaEnv;
 	const { VITE_PUBLIC_PATH } = viteEnv;
+	const { VITE_BASE_API } = viteEnv;
 	return <UserConfigExport>{
+		server: {
+			port: 8900 //指定端口号
+		},
+		proxy: {
+			"/api": {
+				target: VITE_BASE_API,
+				changeOrigin: true, // 允许跨域
+				rewrite: (path: string) => path.replace(/^\/api/, "")
+			}
+		},
 		/** 打包时根据实际情况修改 base */
 		base: VITE_PUBLIC_PATH,
 		//文件别名

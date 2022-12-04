@@ -26,7 +26,7 @@ router.beforeEach(async (to, form, next) => {
 						next();
 					} else {
 						// 注意首页情况
-						next({ path: "/login" });
+						next({ path: "/login", replace: true });
 					}
 				}
 				/**
@@ -49,7 +49,7 @@ router.beforeEach(async (to, form, next) => {
 						if (userStore.userinfo.admin || to.path === "/dashboard" || roleStore.getRoutesPath().indexOf(to.path) !== -1) {
 							next();
 						} else {
-							next({ path: "/login" });
+							next({ path: "/login", replace: true });
 						}
 					}
 					/**
@@ -64,9 +64,8 @@ router.beforeEach(async (to, form, next) => {
 			}
 		}
 	} else if (to.path === "/login") {
-		console.log("没登录");
 		next();
 	} else {
-		next({ path: "/login" });
+		next({ path: "/login", replace: true });
 	}
 });

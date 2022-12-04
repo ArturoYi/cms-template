@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { getCurrentInstance, onMounted, ref, watch } from "vue";
-import { type RouteRecordRaw, useRoute, useRouter } from "vue-router";
-import { type ITagView, useTagsViewStore } from "@/store/modules/tags-view";
+import { RouteRecordRaw, useRoute, useRouter } from "vue-router";
+import { ITagView, useTagsViewStore } from "@/store/modules/tags-view";
 import { useRolesStore } from "@/store/modules/roles";
 import ScrollPane from "./ScrollPane.vue";
 import path from "path-browserify";

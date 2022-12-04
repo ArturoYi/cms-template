@@ -1,7 +1,11 @@
 <template>
 	<Editor id="uuid" v-if="!switching" v-model="content" :api-key="apiKey" :init="init" />
 </template>
-
+<script lang="ts">
+export default {
+	name: "TinymceVue"
+};
+</script>
 <script setup lang="ts">
 import tinymce from "tinymce/tinymce";
 import Editor from "@tinymce/tinymce-vue";
@@ -32,17 +36,12 @@ const props = defineProps({
 	},
 	plugins: {
 		type: [String, Array],
-		default: "table preview link fullscreen wordcount charmap insertdatetime"
+		default: "lists image media table wordcount fullscreen"
 	}, //必填
 	toolbar: {
 		type: [String, Array],
-		default: `undoredo
-    |formatselect
-    |bolditalicstrikethroughforecolorbackcolorformatpainter
-    |linkimage|alignleftaligncenteralignrightalignjustify
-    |numlistbullistoutdentindent
-    |removeformat
-    |previewfullscreencode`
+		default:
+			"codesample bold italic underline alignleft aligncenter alignright alignjustify | undo redo |  formatselect | forecolor backcolor | bullist numlist outdent indent | lists link image media table code | removeformat | fullscreen"
 	} //必填
 });
 
@@ -80,8 +79,12 @@ const init = reactive({
 	toolbar: props.toolbar,
 	//菜单栏配置，设为false则隐藏，不配置则默认显示全部菜单，也可自定义配置--查看 http://tinymce.ax-z.cn/configure/editor-appearance.php --搜索“自定义菜单”
 	// menubar: "file edit my1",
-	// menubar: false,
-
+	menubar: true,
+	paste_webkit_styles: "all",
+	paste_merge_formats: true,
+	nonbreaking_force_tab: false,
+	paste_auto_cleanup_on_paste: false,
+	file_picker_types: "file image media",
 	// 自定义toolbar按钮，需要在toolbar添加
 	// editor.ui.registry.addButton("testBtn", {
 	// 	text: `按钮文字`,
