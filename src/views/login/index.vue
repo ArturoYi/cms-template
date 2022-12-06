@@ -18,10 +18,10 @@ const rolesStore = useRolesStore();
 // 1000毫秒防抖
 const handleLogin = useThrottleFn(async () => {
 	if (loginForm.username !== "" && loginForm.password !== "") {
-		await userStore.login();
+		await userStore.login(loginForm);
 		await userStore.setInfo();
 		rolesStore.setRoutes();
-		router.push({ path: "/" });
+		router.go(0);
 		ElMessage({
 			showClose: true,
 			message: "登录成功",

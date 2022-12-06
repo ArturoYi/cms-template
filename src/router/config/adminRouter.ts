@@ -16,7 +16,7 @@ export const adminRouter: RouteRecordRaw[] = [
 			{
 				path: "/admin/index",
 				component: () => import("@/views/admin/index.vue"),
-				name: "admin-2",
+				name: "管理员模块1",
 				meta: {
 					elIcon: "CirclePlus",
 					title: "管理员2",

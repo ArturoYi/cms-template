@@ -42,8 +42,30 @@ export const groupRouter: RouteRecordRaw[] = [
 				meta: {
 					hidden: true,
 					activeMenu: "/group/group-list",
-					elIcon: "group-add",
+					elIcon: "CirclePlus",
 					title: "权限管理3",
+					permissions: []
+				}
+			},
+			{
+				path: "/group/user-list",
+				component: () => import("@/views/group/user-role/user-list.vue"),
+				name: "user-list",
+				meta: {
+					elIcon: "CirclePlus",
+					title: "用户列表",
+					permissions: []
+				}
+			},
+			{
+				path: "/group/user-add",
+				component: () => import("@/views/group/user-role/user-add.vue"),
+				name: "user-add",
+				meta: {
+					hidden: true,
+					activeMenu: "/group/user-list",
+					elIcon: "CirclePlus",
+					title: "用户列表",
 					permissions: []
 				}
 			}

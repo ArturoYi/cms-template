@@ -57,4 +57,6 @@ https://jf.xmu.edu.cn/online.html
 2. 在`:root`中定义全局色彩
 3. 结合 scss 配置多套主题色彩，通过顶级类名替换样式
 
-## ta6024
+## 提交规范
+
+提交 commit 请执行 pnpm commit

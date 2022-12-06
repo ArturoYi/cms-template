@@ -21,7 +21,6 @@ const logout = () => {
 </script>
 <template>
 	<div class="aaa">
-		<!-- <img src="../../assets/layout/corner.png" class="corner" /> -->
 		<el-dropdown popper-class="el-dropdown" @visible-change="popoverShow" :show-arrow="false" placement="bottom-start">
 			<div ml-5 mr-5 w-50 h-15 flex justify-center items-center>
 				<el-avatar :src="userStore.userinfo.avatar" />

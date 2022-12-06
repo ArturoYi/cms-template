@@ -93,5 +93,66 @@ class Admin {
 		});
 		return res.data;
 	}
+	// 增加权限
+	async putGroupPermissions(data: any) {
+		const res = await request({
+			url: "/tranbiot-core/cms/admin/permission/dispatch/batch",
+			method: "post",
+			data
+		});
+		return res.data;
+	}
+	// 解除权限
+	async removeGroupPermission(data: object) {
+		const res = await request({
+			url: "/tranbiot-core/cms/admin/permission/remove",
+			method: "post",
+			data
+		});
+		return res.data;
+	}
+	// 获取用户
+	async getUserList() {
+		const res = await request({
+			url: "/tranbiot-core/cms/user/console/users",
+			method: "get"
+		});
+		return res.data;
+	}
+	// 删除用户
+	async deleteUser(id: number) {
+		const res = await request({
+			url: `/tranbiot-core/cms/admin/user/${id}/del`,
+			method: "delete"
+		});
+		return res.data;
+	}
+	// 添加用户
+	async postUser(data: object) {
+		const res = await request({
+			url: "/tranbiot-core/cms/admin/register",
+			method: "post",
+			data
+		});
+		return res.data;
+	}
+	// 修改用户权限
+	async putUser(id: any, data: any) {
+		const res = await request({
+			url: `/tranbiot-core/cms/user/console/user/${Number(id)}/update`,
+			method: "put",
+			data
+		});
+		return res.data;
+	}
+	// 修改密码
+	async putUserPassword(id: any, data: any) {
+		const res = await request({
+			url: `/tranbiot-core/cms/user/console/user/${id}/password`,
+			method: "put",
+			data
+		});
+		return res.data;
+	}
 }
 export default new Admin();

@@ -19,7 +19,7 @@ export default function usePage<T>(options: options) {
 	const page = ref<number>(0);
 	const count = ref<number>(0);
 	const total = ref<number>(0);
-	const res = typeRequest<T>();
+	const res = typeRequest<T | any>();
 	/***
 	 *   这里any必须后面判断是否围殴Array类型
 	 * list：是通过ref获取数据
@@ -31,19 +31,28 @@ export default function usePage<T>(options: options) {
 	});
 	// 在这里统一请求
 	const handleQueryList = async () => {
-		console.log("请求数据");
 		loading.value = false;
 		const result = await res({
 			url: options.url,
 			params: options.params,
 			method: "get"
 		});
+		// 自带分页返回
+		if (result.data.data.total) {
+			table_date.list = result.data.data.items || [];
+			list.value = result.data.data.items || [];
+			total.value = result.data.data.total ?? 0;
+			page.value = result.data.data.page;
+			count.value = result.data.data.count;
+		} else {
+			table_date.list = result.data.data || [];
+			list.value = result.data.data || [];
+			total.value = table_date.list.length ?? 0;
+			page.value = options.params.page + 1;
+			count.value = options.params.count;
+		}
+		console.log(page.value);
 		loading.value = true;
-		table_date.list = result.data.data || [];
-		list.value = result.data.data || [];
-		total.value = table_date.list.length ?? 0;
-		page.value = options.params.page + 1;
-		count.value = options.params.count;
 	};
 	handleQueryList();
 	// 监听page变化
@@ -56,10 +65,10 @@ export default function usePage<T>(options: options) {
 	return { loading, page, count, total, list, table_date, get_list_date, handleQueryList };
 }
 
-const count = ref<number>(10);
-const page = ref<number>(0);
-const total = ref<number>(0);
+// const count = ref<number>(10);
+// const page = ref<number>(0);
+// const total = ref<number>(0);
 
-export function tablePage() {
-	return { count, page, total };
-}
+// export function tablePage() {
+// 	return { count, page, total };
+// }
