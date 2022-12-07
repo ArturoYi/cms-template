@@ -2,7 +2,7 @@
 import { reactive, ref } from "vue";
 import { options } from "@/hooks/useTable";
 import usePage from "@/hooks/useTable";
-import { GroupType } from "@/api/module/admin/admin-type";
+import { group } from "@/api/module/admin/dto";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { useRouter } from "vue-router";
 import Admin from "@/api/module/admin/admin";
@@ -10,7 +10,7 @@ const router = useRouter();
 const handleGroupAdd = () => {
 	router.push("/group/add");
 };
-const edit_form = reactive<GroupType>({
+const edit_form = reactive<group>({
 	id: 0,
 	name: "",
 	info: "",
@@ -25,8 +25,8 @@ const params = reactive<options>({
 	}
 });
 
-const { loading, page, count, total, handleQueryList, table_date, get_list_date } = usePage<GroupType[]>(params);
-const handleEdit = (index: number, item: GroupType) => {
+const { loading, page, count, total, handleQueryList, table_date, get_list_date } = usePage<group[]>(params);
+const handleEdit = (index: number, item: group) => {
 	Object.assign(edit_form, item);
 	edit_dialog.value = true;
 };
@@ -39,7 +39,7 @@ const handlePutGroup = async () => {
 		message: "编辑成功"
 	});
 };
-const handleDelete = (index: number, item: GroupType) => {
+const handleDelete = (index: number, item: group) => {
 	console.log(index, item);
 	ElMessageBox.confirm("是否确认删除", "提示", {
 		confirmButtonText: "OK",
@@ -62,7 +62,7 @@ const handleDelete = (index: number, item: GroupType) => {
 			});
 		});
 };
-const handleGroup = (index: number, item: GroupType) => {
+const handleGroup = (index: number, item: group) => {
 	router.push({ path: `/${item.id}/permissions`, name: "group-permissions", params: { id: item.id } });
 };
 const handleSizeChange = (val: number) => {

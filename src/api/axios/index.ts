@@ -3,11 +3,15 @@ import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse,
 // setAccessToken, getRefreshToken, setRefreshToken
 import { getAccessToken, getRefreshToken } from "@/utils/cache/localStorage";
 import { get } from "lodash-es";
-import { resultType } from "@/api";
 // import { ElMessage } from "element-plus";
 import { responseInterceptors } from "./interceptors/res";
 import { requestInterceptors } from "./interceptors/req";
-// import Admin from "../module/admin/admin";
+export interface resultType<T> {
+	code: number;
+	data: T;
+	message: any;
+	request: string;
+}
 
 /** 创建请求实例 */
 function createService<T>() {
@@ -42,8 +46,8 @@ function createService<T>() {
 /** 用于网络请求的实例——自定义config */
 export const service = createService<any>();
 /** 创建请求的方法*/
-export function createRequestFunction<T = any>(service: AxiosInstance) {
-	return function (config: AxiosRequestConfig): Promise<AxiosResponse<resultType<T>, any>> {
+export function createRequestFunction(service: AxiosInstance) {
+	return function <T = any>(config: AxiosRequestConfig): Promise<AxiosResponse<resultType<T>, any>> {
 		const configDefault: AxiosRequestConfig = {
 			headers: {
 				// 携带 Token
@@ -67,8 +71,5 @@ export function createRequestFunction<T = any>(service: AxiosInstance) {
 	};
 }
 /** 这个只是折中办法,多了一步，并不好，但是这样是为了响应结果自定义 */
-export function typeRequest<T>() {
-	return createRequestFunction<T>(service);
-}
 /** 用于网络请求的方法 */
-export const request = createRequestFunction<any>(service);
+export const request = createRequestFunction(service);

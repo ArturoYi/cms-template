@@ -4,7 +4,7 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { computed, reactive, ref, defineExpose, onMounted } from "vue";
+import { computed, reactive, ref, onMounted } from "vue";
 import { ElMessage, FormInstance, FormRules, TabsPaneContext } from "element-plus";
 import Admin from "@/api/module/admin/admin";
 const all_group = reactive({ all_list: {}, select_list: { group_ids: [] } });

@@ -13,13 +13,13 @@ export const responseInterceptors = async (response: AxiosResponse<resultType>):
 		if (isCode.includes(data.code)) {
 			if (config.url !== "tranbiot-core/cms/user/refresh") {
 				const refreshResult = await Admin.refreshToken();
-				setAccessToken(refreshResult.data.data.access_token);
-				setRefreshToken(refreshResult.data.data.refresh_token);
+				setAccessToken(refreshResult.data.access_token);
+				setRefreshToken(refreshResult.data.refresh_token);
 				// if (response.config.method === "get") {
 				// 	response.config.data = { unused: 0 };
 				// }
-				service.defaults.headers!.Authorization = refreshResult.data.data.access_token;
-				response.config.headers!.Authorization = refreshResult.data.data.access_token;
+				service.defaults.headers!.Authorization = refreshResult.data.access_token;
+				response.config.headers!.Authorization = refreshResult.data.access_token;
 				const result = await service.request({
 					baseURL: import.meta.env.VITE_BASE_API,
 					url: response.config.url,

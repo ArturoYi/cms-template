@@ -4,7 +4,7 @@ import { useRolesStoreHook } from "@/store/modules/roles";
 import { whiteList } from "@/config/white-list";
 import { getAccessToken, getRefreshToken } from "@/utils/cache/localStorage";
 router.beforeEach(async (to, form, next) => {
-	// 只能在路由钩子使用pinia
+	// 只能在路由钩子内使用pinia
 	const userStore = useUserStoreHook();
 	const roleStore = useRolesStoreHook();
 	/**
@@ -68,4 +68,12 @@ router.beforeEach(async (to, form, next) => {
 	} else {
 		next({ path: "/login", replace: true });
 	}
+});
+
+/** 参数依然有to, form, next，只是没遇到就不加了 **/
+router.afterEach((to) => {
+	// 跳转成功设置标题
+	document.title = to.meta.title ? to.meta.title : "回收项目";
+	// 返回顶部
+	window.screenTop = 0;
 });

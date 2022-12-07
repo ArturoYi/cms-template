@@ -1,14 +1,14 @@
 import { reactive, ref } from "vue";
 import store from "@/store";
 import { defineStore } from "pinia";
-import { Root } from "@/type/module/roottype";
-import root from "@/api/module/admin/admin";
+import Admin from "@/api/module/admin/admin";
 import router from "@/router";
 // suportLocalstorage, getUserInfo, setUserInfo, getIsLoged, setIsLoged
 import { getAccessToken, getRefreshToken, setAccessToken, setRefreshToken } from "@/utils/cache/localStorage";
+import { userinfo } from "@/api/module/admin/dto";
 export const useUserStore = defineStore("user", () => {
 	const logined = ref<boolean>(false);
-	const userinfo = reactive<Root["userInfo"]>({
+	const userinfo = reactive<userinfo>({
 		id: 0,
 		admin: false,
 		avatar: "",
@@ -18,20 +18,14 @@ export const useUserStore = defineStore("user", () => {
 	});
 	/** 把登录请求写在这里方便全局状态管理*/
 	const login = async (user_form: any) => {
-		await root
-			.getToken(user_form)
-			.then((res) => {
-				setAccessToken(res.data.data.access_token);
-				setRefreshToken(res.data.data.refresh_token);
-			})
-			.catch((err) => {
-				console.error(err);
-			});
+		const result = await Admin.getToken(user_form);
+		setAccessToken(result.data.access_token);
+		setRefreshToken(result.data.refresh_token);
 	};
 	/** 設置用戶信息——这个方法可能会经常用到*/
 	const setInfo = async () => {
 		if (!logined.value) {
-			const result = await root.getInfo();
+			const result = await Admin.getInfo();
 			console.log(result);
 			userinfo.id = result.data.id;
 			userinfo.admin = result.data.admin;

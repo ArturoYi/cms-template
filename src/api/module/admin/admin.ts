@@ -1,33 +1,34 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
-import { request, typeRequest } from "@/api/axios/index";
+import { request } from "@/api/axios/index";
 // setAccessToken, setRefreshToken
 import { getRefreshToken } from "@/utils/cache/localStorage";
-import { AdminLoginType, GroupType } from "./admin-type";
+import { page } from "../global-dto";
+import { group, loginform, tokenresult, userinfo } from "./dto";
 class Admin {
 	// 登錄獲取token
-	async getToken(data: AdminLoginType) {
+	async getToken(data: loginform) {
 		// 登录获取token
-		const res = request({
+		const res = await request<tokenresult>({
 			url: "tranbiot-core/cms/user/login",
 			method: "post",
 			data: data
 		});
-		return res;
+		return res.data;
 	}
 	// 刷新token
 	async refreshToken() {
-		const res = request({
+		const res = await request<tokenresult>({
 			url: "tranbiot-core/cms/user/refresh",
 			method: "get",
 			headers: {
 				Authorization: getRefreshToken()
 			}
 		});
-		return res;
+		return res.data;
 	}
 	// 獲取用戶信息
 	async getInfo() {
-		const res = await request({
+		const res = await request<userinfo>({
 			url: "tranbiot-core/cms/user/permissions",
 			method: "get"
 		});
@@ -43,8 +44,7 @@ class Admin {
 	}
 	// 獲取權限分組列表
 	async getGroupList(params: object) {
-		const re = typeRequest<GroupType[]>();
-		const res = await re({
+		const res = await request<page<group>[]>({
 			url: "/tranbiot-core/cms/admin/group/all",
 			method: "get",
 			params
@@ -52,8 +52,8 @@ class Admin {
 		return res.data;
 	}
 	// 编辑权限组
-	async putGroup(id: number, data: GroupType) {
-		const res = await request({
+	async putGroup(id: number, data: group) {
+		const res = await request<any>({
 			url: `/tranbiot-core/cms/admin/group/${id}/update`,
 			method: "put",
 			data
@@ -62,7 +62,7 @@ class Admin {
 	}
 	// 删除权限组
 	async deleteGroup(id: number) {
-		const res = await request({
+		const res = await request<any>({
 			url: `/tranbiot-core/cms/admin/group/${id}/del`,
 			method: "delete"
 		});
@@ -70,7 +70,7 @@ class Admin {
 	}
 	// 添加权限组
 	async postGroup(data: { name: string; info: string }) {
-		const res = await request({
+		const res = await request<any>({
 			url: "/tranbiot-core/cms/admin/group/add",
 			method: "post",
 			data
@@ -121,7 +121,7 @@ class Admin {
 	}
 	// 删除用户
 	async deleteUser(id: number) {
-		const res = await request({
+		const res = await request<any>({
 			url: `/tranbiot-core/cms/admin/user/${id}/del`,
 			method: "delete"
 		});

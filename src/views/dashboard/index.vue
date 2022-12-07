@@ -3,7 +3,8 @@ import router from "@/router";
 import { useAppStore } from "@/store/modules/app";
 import { ref } from "vue";
 import TinymceVue from "@/components/Base/Tinymce/Tinymce.vue";
-// import { storeToRefs } from 'pinia'
+import { getDate } from "@/utils/dayjs/index";
+console.log(getDate());
 const appStore = useAppStore();
 const handleLogin = () => {
 	router.push({ path: "/login" });

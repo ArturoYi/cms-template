@@ -1,7 +1,6 @@
 import { reactive, ref, watch } from "vue";
 // reactive,
-import { typeRequest } from "@/api/axios/index";
-// import { GroupType } from "@/api/module/admin/admin-type";
+import { request } from "@/api/axios/index";
 // 定义类型
 export type options = {
 	url?: string;
@@ -19,7 +18,6 @@ export default function usePage<T>(options: options) {
 	const page = ref<number>(0);
 	const count = ref<number>(0);
 	const total = ref<number>(0);
-	const res = typeRequest<T | any>();
 	/***
 	 *   这里any必须后面判断是否围殴Array类型
 	 * list：是通过ref获取数据
@@ -32,7 +30,7 @@ export default function usePage<T>(options: options) {
 	// 在这里统一请求
 	const handleQueryList = async () => {
 		loading.value = false;
-		const result = await res({
+		const result = await request<T | any>({
 			url: options.url,
 			params: options.params,
 			method: "get"
