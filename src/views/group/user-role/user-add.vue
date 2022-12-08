@@ -73,7 +73,7 @@ const userFormRef = ref<FormInstance>();
 // 提交
 const handelPostUser = async (formrule: FormInstance | undefined) => {
 	if (!formrule) return;
-	await formrule.validate(async (valid, fields) => {
+	await formrule.validate(async (valid) => {
 		if (valid) {
 			await Admin.postUser(user_form);
 			ElMessage({
@@ -82,7 +82,6 @@ const handelPostUser = async (formrule: FormInstance | undefined) => {
 			});
 			router.go(-1);
 		} else {
-			console.warn(fields);
 			return false;
 		}
 	});

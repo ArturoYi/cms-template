@@ -14,6 +14,7 @@ module.exports = {
 	},
 	//一些代码格式插件
 	extends: [
+		// 當規則衝突，下面的覆蓋上面的
 		"plugin:vue/vue3-essential",
 		"eslint:recommended",
 		"@vue/typescript/recommended",

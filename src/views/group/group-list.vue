@@ -6,6 +6,7 @@ import { group } from "@/api/module/admin/dto";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { useRouter } from "vue-router";
 import Admin from "@/api/module/admin/admin";
+import Logger from "@/utils/console/index";
 const router = useRouter();
 const handleGroupAdd = () => {
 	router.push("/group/add");
@@ -40,7 +41,6 @@ const handlePutGroup = async () => {
 	});
 };
 const handleDelete = (index: number, item: group) => {
-	console.log(index, item);
 	ElMessageBox.confirm("是否确认删除", "提示", {
 		confirmButtonText: "OK",
 		cancelButtonText: "Cancel",
@@ -66,17 +66,17 @@ const handleGroup = (index: number, item: group) => {
 	router.push({ path: `/${item.id}/permissions`, name: "group-permissions", params: { id: item.id } });
 };
 const handleSizeChange = (val: number) => {
-	console.log(val);
+	Logger.log("未使用的變量val:" + val, "val", "分頁");
 };
 const handleCurrentChange = (val: number) => {
-	console.log(val);
+	Logger.log("未使用的變量val:" + val, "val", "分頁");
 };
 </script>
 <template>
 	<div class="app-container">
-		<div class="white-box">
+		<div class="white-box" v-loading="loading">
 			<el-button type="primary" @click="handleGroupAdd">添加分组</el-button>
-			<el-table v-loading="loading.value" :data="table_date.list" stripe style="width: 100%">
+			<el-table v-show="!loading" :data="table_date.list" stripe style="width: 100%">
 				<template #empty>
 					<el-empty description="description" />
 				</template>

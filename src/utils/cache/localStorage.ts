@@ -1,6 +1,7 @@
 import CacheKey from "./cacheKey";
 import { type ThemeName } from "@/hooks/useTheme";
-import { Root } from "@/type/module/roottype";
+import { userinfo } from "@/api/module/admin/dto";
+import Logger from "@/utils/console/index";
 export const suportLocalstorage = (): boolean => {
 	return window.localStorage ? true : false;
 };
@@ -29,15 +30,15 @@ export const setActiveThemeName = (themeName: ThemeName) => {
 	}
 };
 
-export const getUserInfo = (): Root["userInfo"] => {
+export const getUserInfo = (): userinfo => {
 	if (typeof localStorage.getItem(CacheKey.USER_INFO) === "string") {
-		return JSON.parse(localStorage.getItem(CacheKey.USER_INFO) as string) as Root["userInfo"];
+		return JSON.parse(localStorage.getItem(CacheKey.USER_INFO) as string) as userinfo;
 	} else {
 		return { id: 0, admin: false, avatar: "", email: "", nickname: "", permissions: [] };
 	}
 };
 
-export const setUserInfo = (userInfo: Root["userInfo"]) => {
+export const setUserInfo = (userInfo: userinfo) => {
 	if (suportLocalstorage()) {
 		localStorage.setItem(CacheKey.USER_INFO, JSON.stringify(userInfo));
 	}
@@ -47,7 +48,7 @@ export const getAccessToken = () => {
 	if (suportLocalstorage()) {
 		return localStorage.getItem(CacheKey.ACCESS_TOKEN);
 	} else {
-		console.error("浏览器不支持localStorage");
+		Logger.error("浏览器不支持localStorage", "getAccessToken", "getAccessToken()");
 		return "Bearn NosuportLocalstorage";
 	}
 };

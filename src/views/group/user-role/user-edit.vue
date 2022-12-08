@@ -7,7 +7,8 @@ export default {
 import { computed, reactive, ref, onMounted } from "vue";
 import { ElMessage, FormInstance, FormRules, TabsPaneContext } from "element-plus";
 import Admin from "@/api/module/admin/admin";
-const all_group = reactive({ all_list: {}, select_list: { group_ids: [] } });
+import Logger from "@/utils/console/index";
+const all_group = reactive<any>({ all_list: {}, select_list: { group_ids: [] } });
 onMounted(async () => {
 	const result = await Admin.getGroupList({ page: 0, count: 100 });
 	all_group.all_list = result.data;
@@ -28,7 +29,7 @@ const openToDialog = computed({
 		return props.openDialog;
 	},
 	set(v) {
-		console.log(v, "props是单项数据流。这里不写入值");
+		Logger.log("新值：" + v + "-->props是单项数据流。这里不写入值", "props", "user-edit.vue");
 	}
 });
 // 关闭要在父组件关闭
@@ -37,9 +38,7 @@ const handleEditUserClose = (isPut?: boolean) => {
 };
 // 模态框
 const activeName = ref<string>("info");
-const handleClickTabs = (tab: TabsPaneContext, event: Event) => {
-	console.log(tab, event);
-};
+const handleClickTabs = (tab: TabsPaneContext, event: Event) => {};
 const userInfoRef = ref<FormInstance | undefined>();
 // 接收用户信息
 const userDetail = reactive<any>({ editUser: {} });
@@ -53,7 +52,6 @@ defineExpose({
 			groups: user.groups,
 			email: user.email
 		};
-		console.log(user);
 		all_group.select_list.group_ids = user.groups.map((item: any) => {
 			return item.id;
 		});
@@ -114,7 +112,6 @@ const handleClickPutPassword = async (elForm: FormInstance | undefined) => {
 			handleEditUserClose();
 			resetForm(userPasswordRef.value);
 		} else {
-			console.warn(fields);
 			return false;
 		}
 	});
@@ -143,7 +140,6 @@ const handleClickSaveUserInfo = async (elForm: FormInstance | undefined) => {
 			handleEditUserClose();
 			resetForm(userInfoRef.value);
 		} else {
-			console.warn(fields);
 			return false;
 		}
 	});

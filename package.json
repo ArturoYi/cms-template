@@ -72,7 +72,7 @@
 		"vite-plugin-svg-icons": "^2.0.1",
 		"vite-svg-loader": "^3.6.0",
 		"vue-eslint-parser": "^9.1.0",
-		"vue-tsc": "0.40.4"
+		"vue-tsc": "^1.0.11"
 	},
 	"lint-staged": {
 		"*.{js,jsx,vue,ts,tsx}": [

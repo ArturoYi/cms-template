@@ -9,6 +9,7 @@ import { reactive, ref } from "vue";
 import Admin from "@/api/module/admin/admin";
 import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
+import Logger from "@/utils/console/index";
 const router = useRouter();
 type CreateGroup = {
 	name: string;
@@ -30,11 +31,11 @@ const handlePostGroup = async (formEl: FormInstance | undefined) => {
 			await Admin.postGroup(group_form);
 			ElMessage({
 				type: "success",
-				message: "添加成功成功"
+				message: "添加成功"
 			});
 			router.go(-1);
 		} else {
-			console.warn(fields);
+			Logger.error(fields, "驗證失敗", "group-add.vue:38");
 			return false;
 		}
 	});

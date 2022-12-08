@@ -1,3 +1,4 @@
+import Logger from "@/utils/console/index";
 // 判断是否外链
 export const isExternal = (path: string) => {
 	const reg = /^(https?:|mailto:|tel:)/;
@@ -11,7 +12,7 @@ export const getCssVariableValue = (cssVariableName: string) => {
 		// 没有拿到值时，会返回空串
 		cssVariableValue = getComputedStyle(document.documentElement).getPropertyValue(cssVariableName);
 	} catch (error) {
-		console.error(error);
+		Logger.error(error, "獲取不到全局css變量", "getCssVariableValue()");
 	}
 	return cssVariableValue;
 };

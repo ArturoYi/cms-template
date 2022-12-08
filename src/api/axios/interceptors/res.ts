@@ -1,13 +1,14 @@
 /* eslint-disable no-async-promise-executor */
 import { type AxiosResponse, type AxiosError } from "axios";
-import { resultType } from "@/api";
+import { resultType } from "../index";
 import { service } from "../index";
 import Admin from "../../module/admin/admin";
 import { setAccessToken, setRefreshToken } from "@/utils/cache/localStorage";
 import { ElMessage } from "element-plus";
-export const responseInterceptors = async (response: AxiosResponse<resultType>): Promise<AxiosResponse<resultType<any>, any>> => {
+import Logger from "@/utils/console/index";
+export const responseInterceptors = async (response: AxiosResponse<resultType<any>>): Promise<AxiosResponse<resultType<any>, any>> => {
 	const { config, data } = response;
-	const res = await new Promise<AxiosResponse<resultType>>(async (resolve, reject) => {
+	const res = await new Promise<AxiosResponse<resultType<any>>>(async (resolve, reject) => {
 		// 我们必须要先判断是否是refreshToken也过期，否则会无限循环刷新
 		const isCode: number[] = [1000, 1041, 1051, 1050, 1052, 1003, 1001, 1042];
 		if (isCode.includes(data.code)) {
@@ -29,8 +30,8 @@ export const responseInterceptors = async (response: AxiosResponse<resultType>):
 				});
 				return resolve(result);
 			} else {
+				Logger.error(response, response.request, "請求響應攔截");
 				return reject(response);
-				console.log("登录过期");
 			}
 		} else {
 			ElMessage.error(response.data.message);
@@ -40,7 +41,7 @@ export const responseInterceptors = async (response: AxiosResponse<resultType>):
 	return res;
 };
 
-export const errorInterceptors = (config: AxiosError<resultType>): AxiosError<resultType, any> => {
+export const errorInterceptors = (config: AxiosError<resultType<any>>): AxiosError<resultType<any>, any> => {
 	// 发现token过期在错误中返回很难处理
 	return config;
 };

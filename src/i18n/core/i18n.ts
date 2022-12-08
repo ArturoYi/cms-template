@@ -5,13 +5,13 @@
  */
 import { createI18n } from "vue-i18n";
 import { en } from "@/i18n/lang/en/en";
-import { zh_cn } from "@/i18n/lang/zh/zh";
-import elzhcn from "element-plus/lib/locale/lang/zh-cn";
+import { zh_tw } from "@/i18n/lang/zh/zh";
+import elzhtw from "element-plus/lib/locale/lang/zh-tw";
 import elen from "element-plus/lib/locale/lang/en";
 // 语言配置整合-下面整合方式可以假如外部语言包，但我没有这么做
 const messages = {
 	en: { ...en, ...elen },
-	zh_cn: { ...zh_cn, ...elzhcn }
+	zh_tw: { ...zh_tw, ...elzhtw }
 };
 //创建实例
 const i18n = createI18n({

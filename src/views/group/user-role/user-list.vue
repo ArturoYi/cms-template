@@ -5,7 +5,7 @@ import { ElMessage, ElMessageBox } from "element-plus";
 import Admin from "@/api/module/admin/admin";
 import EditUser from "./user-edit.vue";
 import { onMounted, reactive, ref } from "vue";
-//useRoute
+import Logger from "@/utils/console/index";
 import { useRouter } from "vue-router";
 const router = useRouter();
 const editUserDialog = ref<InstanceType<typeof EditUser> | any>();
@@ -32,10 +32,10 @@ const getGroupsName = (list: Array<any>) => {
 };
 // 分页
 const handleSizeChange = (val: any) => {
-	console.log(val, page, count, total);
+	Logger.log("未使用的變量val:" + val, "val", "分頁");
 };
 const handleCurrentChange = (val: any) => {
-	console.log(val, page, count, total);
+	Logger.log("未使用的變量val:" + val, "val", "分頁");
 };
 // 删除用户
 const handleDeleteUser = (id: number) => {
@@ -79,14 +79,9 @@ const handlogChildDialog = () => {
 </script>
 <template>
 	<div class="app-container">
-		<div class="white-box">
+		<div class="white-box" v-loading="loading">
 			<el-button @click="handelAddUser">添加用户</el-button>
-			<el-table
-				v-loading="loading.value"
-				:header-cell-style="{ 'text-align': 'center' }"
-				:cell-style="{ 'text-align': 'center' }"
-				:data="table_date.list"
-			>
+			<el-table v-show="!loading" :header-cell-style="{ 'text-align': 'center' }" :cell-style="{ 'text-align': 'center' }" :data="table_date.list">
 				<template #empty>
 					<el-empty description="description" />
 				</template>

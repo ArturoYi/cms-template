@@ -7,23 +7,23 @@ import i18n from "@/i18n/core/i18n";
  * elementUI PLUS语言配置
  * 有个不会刷新语言的bug，目前尚未解决
  * */
-import zhcn from "element-plus/lib/locale/lang/zh-cn";
+import zhtw from "element-plus/lib/locale/lang/zh-tw";
 import en from "element-plus/lib/locale/lang/en";
 interface ILangList {
 	title: string;
 	name: LangName;
 }
 /** 注册的主题名称, 其中 normal 是必填的 */
-export type LangName = "zh_cn" | "en";
+export type LangName = "zh_tw" | "en";
 export enum LangEnum {
-	zn_ch = "zh_cn",
+	zn_tw = "zh_tw",
 	en = "en"
 }
 /** 语言列表 */
 const langList: ILangList[] = [
 	{
 		title: "中文",
-		name: "zh_cn"
+		name: "zh_tw"
 	},
 	{
 		title: "英语",
@@ -40,10 +40,10 @@ const getLoaclStoage = (): LangName => {
 			}
 		}
 	}
-	return "zh_cn";
+	return "zh_tw";
 };
 /** 正在使用的主题名称*/
-const activeLangName = ref<LangName>(getLoaclStoage() || LangEnum.zn_ch);
+const activeLangName = ref<LangName>(getLoaclStoage() || LangEnum.zn_tw);
 
 const initLang = () => {
 	// setHtmlLangName(activeLangName.value);
@@ -68,7 +68,7 @@ const setHtmlLangName = (locale: LangName) => {
 	});
 };
 const locale = computed(() => {
-	return activeLangName.value === "zh_cn" ? zhcn : en;
+	return activeLangName.value === "zh_tw" ? zhtw : en;
 });
 
 /** 语言hook*/

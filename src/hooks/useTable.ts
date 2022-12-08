@@ -14,7 +14,7 @@ export type options = {
 export default function usePage<T>(options: options) {
 	// 定义分页查询参数
 	const get_list_date = ref<Date>(new Date());
-	const loading = ref<boolean>(false);
+	const loading = ref<boolean>(true);
 	const page = ref<number>(0);
 	const count = ref<number>(0);
 	const total = ref<number>(0);
@@ -29,7 +29,7 @@ export default function usePage<T>(options: options) {
 	});
 	// 在这里统一请求
 	const handleQueryList = async () => {
-		loading.value = false;
+		loading.value = true;
 		const result = await request<T | any>({
 			url: options.url,
 			params: options.params,
@@ -49,17 +49,18 @@ export default function usePage<T>(options: options) {
 			page.value = options.params.page + 1;
 			count.value = options.params.count;
 		}
-		console.log(page.value);
-		loading.value = true;
+		setTimeout(() => {
+			loading.value = false;
+		}, 500);
 	};
-	handleQueryList();
+	setTimeout(() => {
+		handleQueryList(), 300;
+	});
 	// 监听page变化
 	watch(page, () => {
 		handleQueryList();
 	});
-	watch(get_list_date, () => {
-		handleQueryList();
-	});
+	watch(get_list_date, () => {});
 	return { loading, page, count, total, list, table_date, get_list_date, handleQueryList };
 }
 

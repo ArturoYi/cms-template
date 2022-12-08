@@ -6,6 +6,7 @@ import { get } from "lodash-es";
 // import { ElMessage } from "element-plus";
 import { responseInterceptors } from "./interceptors/res";
 import { requestInterceptors } from "./interceptors/req";
+import Logger from "@/utils/console/index";
 export interface resultType<T> {
 	code: number;
 	data: T;
@@ -37,7 +38,7 @@ function createService<T>() {
 			return await responseInterceptors(response);
 		},
 		(error: AxiosError<resultType<any>>) => {
-			console.log(error);
+			Logger.error(error, "響應錯誤", "axios響應攔截");
 			return error;
 		}
 	);

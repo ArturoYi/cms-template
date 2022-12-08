@@ -53,10 +53,110 @@ https://jf.xmu.edu.cn/online.html
 
 ## 主题
 
-1. 一般的 cms 系统都会退出主题系统。我不推崇完全的自定义化主题，因为这样往往只是让用户改变一个主色，并不符合一致性，而多色自定义又比较不符合易用性。而是在开发时采用多套完整的主题色调。
+1. 一般的 cms 系统都会推出主题系统。我不推崇完全的自定义化主题，因为这样往往只是让用户改变一个主色，并不符合一致性，而多色自定义又比较不符合易用性。而是在开发时采用多套完整的主题色调。
 2. 在`:root`中定义全局色彩
 3. 结合 scss 配置多套主题色彩，通过顶级类名替换样式
 
 ## 提交规范
 
 提交 commit 请执行 pnpm commit
+
+## package.json 解析
+
+<!-- 请及时保持更新此文件 -->
+
+```json
+{
+	"name": "vite-cms", //名称
+	"version": "0.0.1", //版本
+	"description": "基于 Vue3、TypeScript、Pinia 和 Vite 等主流技术的cms解決方案",
+	"scripts": {
+		"dev": "vite --mode development",
+		"build:dev": "vue-tsc --noEmit && vite build --mode development",
+		"build:prod": "vue-tsc --noEmit && vite build --mode production",
+		"preview": "vite preview",
+		"style": "stylelint \"src/**/*.(vue|scss|css)\" --fix",
+		"lint": "pnpm lint:eslint && pnpm lint:prettier",
+		"lint:eslint": "eslint \"src/**/*.{vue,ts,tsx}\" --fix",
+		"lint:prettier": "prettier --write  \"src/**/*.{js,json,tsx,ts,css,less,scss,vue,html,md}\"",
+		"prepare": "husky install",
+		"commit": "git-cz"
+	},
+	"dependencies": {
+		"@element-plus/icons-vue": "^2.0.10", //element-plus图标
+		"@tinymce/tinymce-vue": "^5.0.0", //富文本编辑器
+		"@vueuse/core": "^9.6.0", //vueuse工具库
+		"axios": "^1.1.3", //axios请求封装
+		"dayjs": "^1.11.7", //日期管理库
+		"element-plus": "^2.2.18", //组件库
+		"lodash-es": "^4.17.21", //lodash-es工具库
+		"path-browserify": "^1.0.1", //解析浏览器路径
+		"path-to-regexp": "^6.2.1", //解析浏览器路径
+		"pinia": "^2.0.23", //状态管理库
+		"tinymce": "6.2.0", //原生富文本编辑器
+		"vue": "3.2.41", //vue框架
+		"vue-i18n": "9.3.0-beta.6", //国际化插件
+		"vue-router": "^4.1.5" //vue官方路由
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^17.1.2",
+		"@commitlint/config-conventional": "^17.1.0",
+		"@types/lodash-es": "^4.17.6",
+		"@types/node": "18.8.0",
+		"@types/path-browserify": "^1.0.0",
+		"@typescript-eslint/eslint-plugin": "^5.40.0",
+		"@typescript-eslint/parser": "^5.40.0",
+		"@unocss/preset-rem-to-px": "^0.46.3",
+		"@vitejs/plugin-vue": "3.1.0",
+		"@vue/eslint-config-prettier": "^7.0.0",
+		"@vue/eslint-config-typescript": "^11.0.2",
+		"commitizen": "^4.2.5",
+		"cz-conventional-changelog": "^3.3.0",
+		"cz-customizable": "^7.0.0",
+		"eslint": "^8.25.0",
+		"eslint-plugin-prettier": "^4.2.1",
+		"eslint-plugin-vue": "^9.6.0",
+		"husky": "^8.0.1",
+		"lint-staged": "^13.0.3",
+		"pinia-plugin-persist": "^1.0.0",
+		"pinia-plugin-persistedstate": "^2.3.0",
+		"postcss": "^8.4.18",
+		"postcss-html": "^1.5.0",
+		"postcss-scss": "^4.0.5",
+		"prettier": "^2.7.1",
+		"sass": "^1.55.0",
+		"stylelint": "14.14.0",
+		"stylelint-config-prettier": "^9.0.3",
+		"stylelint-config-recommended-vue": "^1.4.0",
+		"stylelint-config-standard": "^29.0.0",
+		"stylelint-config-standard-scss": "^5.0.0",
+		"stylelint-order": "^5.0.0",
+		"stylelint-scss": "^4.3.0",
+		"terser": "^5.15.1",
+		"typescript": "4.6.4",
+		"unocss": "^0.46.1",
+		"vite": "3.1.0",
+		"vite-plugin-compression": "^0.5.1",
+		"vite-plugin-svg-icons": "^2.0.1",
+		"vite-svg-loader": "^3.6.0",
+		"vue-eslint-parser": "^9.1.0",
+		"vue-tsc": "^1.0.11"
+	},
+	"lint-staged": {
+		"*.{js,jsx,vue,ts,tsx}": ["eslint --fix", "prettier --write"],
+		"*.{scss,less,css,html,md}": ["prettier --write"],
+		"package.json": ["prettier --write"],
+		"{!(package)*.json,.!(browserslist)*rc}": ["prettier --write--parser json"]
+	},
+	"config": {
+		"commitizen": {
+			"path": "node_modules/cz-customizable"
+		},
+		"cz-customizable": {
+			"config": "commitlint.config.cjs"
+		}
+	},
+	"keywords": ["vue", "element-plus", "vue3", "ts", "admin", "typescript"],
+	"license": "MIT"
+}
+```

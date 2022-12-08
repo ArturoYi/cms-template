@@ -26,7 +26,6 @@ export const useUserStore = defineStore("user", () => {
 	const setInfo = async () => {
 		if (!logined.value) {
 			const result = await Admin.getInfo();
-			console.log(result);
 			userinfo.id = result.data.id;
 			userinfo.admin = result.data.admin;
 			userinfo.avatar = result.data.avatar || "https://povcms-1251273463.cos.ap-chengdu.myqcloud.com/49392476-2cb7-40c0-b843-397386b21fcd.jpg";
@@ -51,8 +50,6 @@ export const useUserStore = defineStore("user", () => {
 // 初始化数据-这一步不是必须的，甚至hui
 if (typeof getAccessToken() === "string" && typeof getRefreshToken() === "string") {
 	useUserStore(store).setInfo();
-} else {
-	// console.log("退出登录");
 }
 /** 在 setup 外使用 */
 export function useUserStoreHook() {

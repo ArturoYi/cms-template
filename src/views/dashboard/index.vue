@@ -3,8 +3,7 @@ import router from "@/router";
 import { useAppStore } from "@/store/modules/app";
 import { ref } from "vue";
 import TinymceVue from "@/components/Base/Tinymce/Tinymce.vue";
-import { getDate } from "@/utils/dayjs/index";
-console.log(getDate());
+import { changeTheme } from "@/hooks/useTheme";
 const appStore = useAppStore();
 const handleLogin = () => {
 	router.push({ path: "/login" });
@@ -36,6 +35,9 @@ const options = [
 		label: "Option5"
 	}
 ];
+const changeThemel = () => {
+	changeTheme("#0062ff");
+};
 </script>
 <template>
 	<div class="app-container">
@@ -45,6 +47,7 @@ const options = [
 		<el-select v-model="value" class="m-2" size="large">
 			<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
 		</el-select>
+		<el-button @click="changeThemel">12</el-button>
 		<TinymceVue />
 	</div>
 </template>

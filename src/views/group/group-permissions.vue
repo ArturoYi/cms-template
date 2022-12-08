@@ -37,7 +37,7 @@ const getCurrentGroupDetail = async (id: number) => {
 		}
 	}
 };
-const handleCheckedPermissionChange = (index: string) => {
+const handleCheckedPermissionChange = (index: any) => {
 	// 这是判断是否全选
 	permissions.alllist[index].checkAll = permissions.alllist[index].checkPermission.length === permissions.alllist[index].allPermissions.length;
 	// 这里判断选了那些
@@ -70,7 +70,6 @@ const handleSaveGroup = useThrottleFn(async () => {
 		group_id: group_id,
 		permission_ids: permissions.removelist
 	});
-	console.log(permissions.currentlist, permissions.checklist, permissions.removelist);
 	ElMessage({
 		type: "success",
 		message: "更新成功"
