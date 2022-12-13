@@ -39,6 +39,16 @@ export const userRouter: RouteRecordRaw[] = [
 					title: "用户",
 					permissions: []
 				}
+			},
+			{
+				path: "/user/center",
+				component: () => import("@/views/user/center.vue"),
+				meta: {
+					hidden: true,
+					elIcon: "CirclePlus",
+					title: "用户信息",
+					permissions: []
+				}
 			}
 		]
 	}

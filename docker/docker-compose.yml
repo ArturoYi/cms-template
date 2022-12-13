@@ -1,0 +1,11 @@
+version: '3'
+services:
+  nginx:
+    restart: always
+    container_name: cms_nginx
+    image: nginx:1.21.1
+    build:
+      context: .
+      dockerfile: Dockerfile
+      ports:
+        - "80:80"

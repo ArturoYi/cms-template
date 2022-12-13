@@ -2,28 +2,17 @@
 /* stylelint-disable selector-pseudo-class-no-unknown */
 /* stylelint-disable scss/no-global-function-names */
 
-/** Element-Plus 相关 */
+/** Element-Plus 相关切记这里只该颜色等，非不要不改布局大小等 */
 
 // 侧边栏的 item 的 popper
 .el-popper {
 	border: none !important;
+}
 
-	.el-menu {
-		background-color: lighten($theme-bg-color, 4%) !important;
-
-		.el-menu-item {
-			background-color: lighten($theme-bg-color, 4%) !important;
-
-			&.is-active,
-			&:hover,
-			&:focus {
-				color: $active-font-color !important;
-				background-color: lighten($theme-bg-color, 8%) !important;
-			}
-		}
-
-		.el-sub-menu__title {
-			background-color: lighten($theme-bg-color, 4%) !important;
+.el-table__header-wrapper {
+	.el-table__header {
+		.el-table__cell {
+			background-color: $font-bg !important;
 		}
 	}
 }

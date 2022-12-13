@@ -51,10 +51,10 @@ export default function usePage<T>(options: options) {
 		}
 		setTimeout(() => {
 			loading.value = false;
-		}, 500);
+		}, 200);
 	};
 	setTimeout(() => {
-		handleQueryList(), 300;
+		handleQueryList(), 100;
 	});
 	// 监听page变化
 	watch(page, () => {
@@ -63,11 +63,3 @@ export default function usePage<T>(options: options) {
 	watch(get_list_date, () => {});
 	return { loading, page, count, total, list, table_date, get_list_date, handleQueryList };
 }
-
-// const count = ref<number>(10);
-// const page = ref<number>(0);
-// const total = ref<number>(0);
-
-// export function tablePage() {
-// 	return { count, page, total };
-// }

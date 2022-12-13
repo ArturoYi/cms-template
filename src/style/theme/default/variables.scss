@@ -12,7 +12,10 @@ $theme-bg-color: #f6f7fb;
 // $active-theme-bg-color: #01efb7bb;
 
 // 默认文字颜色
-$font-color: #333333 global;
+$font-color: #1c1c1c global;
+
+// 文字背景色
+$font-bg: #90939915;
 
 // active 状态下文字颜色
 $active-font-color: #0062ff;
@@ -23,8 +26,8 @@ $hover-color: rgb(0 98 255 / 20%);
 // 边框颜色
 $border-color: #e4e4e4;
 
-// 内容背景色，区别于bg
-$side-bar-bg: #0062ff;
+// 侧边栏区别于bg
+$side-bar-bg: #0062ff2b;
 
 // white-box
 $white-box: #ffffff;

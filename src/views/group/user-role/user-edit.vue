@@ -24,7 +24,7 @@ const emit = defineEmits<{
 	(e: "on-click", name: boolean, isPut?: boolean): void;
 }>();
 // props是单项数据流
-const openToDialog = computed({
+const openToDialog = computed<boolean>({
 	get() {
 		return props.openDialog;
 	},
@@ -33,7 +33,7 @@ const openToDialog = computed({
 	}
 });
 // 关闭要在父组件关闭
-const handleEditUserClose = (isPut?: boolean) => {
+const handleEditUserClose = (done?: () => void, isPut?: boolean | undefined) => {
 	emit("on-click", !props.openDialog, isPut);
 };
 // 模态框

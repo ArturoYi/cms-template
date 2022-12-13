@@ -7,6 +7,8 @@ export default {
 import { useUserStore } from "@/store/modules/user";
 import { ArrowUp } from "@element-plus/icons-vue";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
 const userStore = useUserStore();
 const show = ref<boolean>(false);
 // 显示时触发
@@ -17,6 +19,9 @@ const popoverShow = (e: boolean) => {
 const logout = () => {
 	localStorage.clear();
 	userStore.loginOut();
+};
+const goCenter = () => {
+	router.push({ path: "/user/center" });
 };
 </script>
 <template>
@@ -36,7 +41,7 @@ const logout = () => {
 						<div w-70 class="item-nickname">{{ userStore.userinfo.nickname }}</div>
 					</div>
 					<ul w-120 flex flex-col justify-around items-center h-35 class="item-option">
-						<li>个人中心</li>
+						<li @click="goCenter">个人中心</li>
 						<li @click="logout">退出登录</li>
 					</ul>
 				</div>

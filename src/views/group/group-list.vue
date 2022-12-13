@@ -76,7 +76,15 @@ const handleCurrentChange = (val: number) => {
 	<div class="app-container">
 		<div class="white-box" v-loading="loading">
 			<el-button type="primary" @click="handleGroupAdd">添加分组</el-button>
-			<el-table v-show="!loading" :data="table_date.list" stripe style="width: 100%">
+			<el-table
+				v-show="!loading"
+				:header-cell-style="{ 'text-align': 'center' }"
+				:cell-style="{ 'text-align': 'center' }"
+				:data="table_date.list"
+				stripe
+				border
+				style="width: 100%"
+			>
 				<template #empty>
 					<el-empty description="description" />
 				</template>

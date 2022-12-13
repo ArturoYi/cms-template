@@ -10,11 +10,11 @@ import { i18n } from "@/i18n/index";
 // load
 import { loadSvg } from "@/icons";
 import { loadPlugins } from "@/plugins";
-// 样式引入
-import "uno.css";
+// 样式引入——建議好先後順序
+import "@/style/index.scss";
 import "element-plus/dist/index.css";
 import "element-plus/theme-chalk/dark/css-vars.css";
-import "@/style/index.scss";
+import "uno.css";
 const app = createApp(App);
 /** 加载全局 SVG */
 loadSvg(app);

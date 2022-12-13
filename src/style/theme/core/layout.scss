@@ -31,7 +31,7 @@
 				.el-sub-menu__title {
 					border-left: 3px solid $active-font-color !important;
 					color: $active-font-color !important;
-					background-color: lighten($side-bar-bg, 46%);
+					background-color: $side-bar-bg;
 				}
 			}
 		}

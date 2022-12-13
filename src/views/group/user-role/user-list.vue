@@ -81,7 +81,14 @@ const handlogChildDialog = () => {
 	<div class="app-container">
 		<div class="white-box" v-loading="loading">
 			<el-button @click="handelAddUser">添加用户</el-button>
-			<el-table v-show="!loading" :header-cell-style="{ 'text-align': 'center' }" :cell-style="{ 'text-align': 'center' }" :data="table_date.list">
+			<el-table
+				v-show="!loading"
+				stripe
+				:header-cell-style="{ 'text-align': 'center' }"
+				:cell-style="{ 'text-align': 'center' }"
+				:data="table_date.list"
+				border
+			>
 				<template #empty>
 					<el-empty description="description" />
 				</template>

@@ -57,9 +57,9 @@ const apiKey = ref("");
 // 初始化init对象
 const init = reactive({
 	selector: "textarea",
-	language_url: "/tinymce/langs/zh-Hans.js", // 语言包的路径，具体路径看自己的项目，
-	language: lang.value === "zh_cn" ? "zh-Hans" : "zh-Hans", //语言类型
-	placeholder: "在这里输入文字",
+	language_url: lang.value === "zh_tw" ? "/tinymce/langs/zh_HK.js" : "/tinymce/langs/en_GB.js", // 语言包的路径，具体路径看自己的项目，
+	language: lang.value === "zh_tw" ? "zh_HK" : "en_GB", //语言类型
+	placeholder: lang.value === "zh_tw" ? "在这里输入文字" : "Plesas Input Text",
 	browser_spellcheck: true, // 拼写检查
 	min_width: 300,
 	min_height: 200,
@@ -107,6 +107,27 @@ watch(
 	() => content.value,
 	() => {
 		emits("getContent", content.value);
+	}
+);
+watch(
+	() => lang.value,
+	() => {
+		if (lang.value === "zh_tw") {
+			init.language_url = "/tinymce/langs/zh_HK.js";
+			init.language = "zh_HK";
+			init.placeholder = "请输入内容";
+		}
+		if (lang.value === "en") {
+			init.language_url = "/tinymce/langs/en_GB.js";
+			init.language = "en_GB";
+			init.placeholder = "Plesas Input Text";
+		}
+		switching.value = true;
+		const instance = tinymce.get("uuid");
+		instance?.destroy();
+		nextTick(() => {
+			switching.value = false;
+		});
 	}
 );
 watch(

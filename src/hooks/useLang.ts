@@ -46,12 +46,11 @@ const getLoaclStoage = (): LangName => {
 const activeLangName = ref<LangName>(getLoaclStoage() || LangEnum.zn_tw);
 
 const initLang = () => {
-	// setHtmlLangName(activeLangName.value);
 	// 添加标签
 	document.querySelector("html")?.setAttribute("lang", activeLangName.value);
 	setLang(activeLangName.value);
-	// activeLangName.value = locale;
-	// i18n.global.locale.value = locale;
+	// setHtmlLangName(activeLangName.value);
+	i18n.global.locale.value = activeLangName.value;
 };
 
 // 切换语言

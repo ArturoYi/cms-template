@@ -64,13 +64,13 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
 		// UnoCSS()
 		plugins: [
 			vue() /** 将 SVG 静态图转化为 Vue 组件 */,
+			UnoCSS(),
 			svgLoader(),
 			/** SVG */
 			createSvgIconsPlugin({
 				iconDirs: [path.resolve(process.cwd(), "src/icons/svg")],
 				symbolId: "icon-[dir]-[name]"
 			}),
-			UnoCSS(),
 			viteCompression({
 				threshold: 1024000 // 对大于 1mb 的文件进行压缩
 			})

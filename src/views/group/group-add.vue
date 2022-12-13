@@ -1,8 +1,3 @@
-<!--
- * @Description:
- * @User: Chen
- * @Date: 2022-12-02 17:34:07
--->
 <script setup lang="ts">
 import type { FormInstance, FormRules } from "element-plus";
 import { reactive, ref } from "vue";

@@ -15,7 +15,7 @@ interface ILayoutSettings {
 	fixedHeader: boolean;
 	/** 是否显示切换主题按钮 */
 	showThemeSwitch: boolean;
-	/** 是否显示全屏按钮 */
+	/** 是否显示全屏按钮——沒有用到，功能已經實現 */
 	showScreenfull: boolean;
 }
 

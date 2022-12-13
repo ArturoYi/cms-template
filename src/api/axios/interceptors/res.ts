@@ -6,7 +6,7 @@ import Admin from "../../module/admin/admin";
 import { setAccessToken, setRefreshToken } from "@/utils/cache/localStorage";
 import { ElMessage } from "element-plus";
 import Logger from "@/utils/console/index";
-export const responseInterceptors = async (response: AxiosResponse<resultType<any>>): Promise<AxiosResponse<resultType<any>, any>> => {
+export const responseInterceptors = async <T = any>(response: AxiosResponse<resultType<any>>): Promise<AxiosResponse<resultType<any>, any>> => {
 	const { config, data } = response;
 	const res = await new Promise<AxiosResponse<resultType<any>>>(async (resolve, reject) => {
 		// 我们必须要先判断是否是refreshToken也过期，否则会无限循环刷新
@@ -21,7 +21,7 @@ export const responseInterceptors = async (response: AxiosResponse<resultType<an
 				// }
 				service.defaults.headers!.Authorization = refreshResult.data.access_token;
 				response.config.headers!.Authorization = refreshResult.data.access_token;
-				const result = await service.request({
+				const result = await service.request<resultType<T>>({
 					baseURL: import.meta.env.VITE_BASE_API,
 					url: response.config.url,
 					method: response.config.method,
