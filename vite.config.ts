@@ -14,7 +14,7 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
 	const { VITE_BASE_API } = viteEnv;
 	return <UserConfigExport>{
 		server: {
-			port: 8999 //指定端口号
+			// port: 8989 //指定端口号
 		},
 		proxy: {
 			"/api": {

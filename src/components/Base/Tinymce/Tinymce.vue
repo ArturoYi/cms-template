@@ -1,5 +1,7 @@
 <template>
-	<Editor id="uuid" v-if="!switching" v-model="content" :api-key="apiKey" :init="init" />
+	<div v-loading="loading">
+		<Editor id="uuid" v-if="!switching" v-model="content" :api-key="apiKey" :init="init" />
+	</div>
 </template>
 <script lang="ts">
 export default {
@@ -45,6 +47,7 @@ const props = defineProps({
 	} //必填
 });
 
+const loading = ref<boolean>(false);
 // 控制显示隐藏
 const switching = ref<boolean>(false);
 // 控制主题
@@ -147,6 +150,15 @@ watch(
 		nextTick(() => {
 			switching.value = false;
 		});
+	}
+);
+watch(
+	() => switching.value,
+	() => {
+		loading.value = !switching.value;
+		setTimeout(() => {
+			loading.value = switching.value;
+		}, 300);
 	}
 );
 //在onMounted中初始化编辑器

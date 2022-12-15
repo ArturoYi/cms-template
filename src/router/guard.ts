@@ -1,12 +1,12 @@
 import router from "@/router";
 import { useUserStoreHook } from "@/store/modules/user";
-import { useRolesStoreHook } from "@/store/modules/roles";
+import { hasPermissionTo } from "@/store/modules/permission";
 import { whiteList } from "@/config/white-list";
 import { getAccessToken, getRefreshToken } from "@/utils/cache/localStorage";
 router.beforeEach(async (to, form, next) => {
 	// 只能在路由钩子内使用pinia
 	const userStore = useUserStoreHook();
-	const roleStore = useRolesStoreHook();
+	// const permissronStore = usePermissionStore();
 	/**
 	 * 正常我們只需要做兩件事
 	 * 是否已經登錄
@@ -23,7 +23,7 @@ router.beforeEach(async (to, form, next) => {
 					next({ replace: true });
 				} else {
 					// 在这里判断权限
-					if (userStore.userinfo.admin || to.path === "/dashboard" || roleStore.getRoutesPath().indexOf(to.path) !== -1) {
+					if (userStore.userinfo.admin || hasPermissionTo(userStore.userinfo.permissions, to)) {
 						next();
 					} else {
 						// 注意首页情况
@@ -47,7 +47,7 @@ router.beforeEach(async (to, form, next) => {
 						next({ replace: true });
 					} else {
 						// 在这里判断权限
-						if (userStore.userinfo.admin || to.path === "/dashboard" || roleStore.getRoutesPath().indexOf(to.path) !== -1) {
+						if (userStore.userinfo.admin || to.path === "/dashboard" || hasPermissionTo(userStore.userinfo.permissions, to)) {
 							next();
 						} else {
 							next({ path: "/login", replace: true });

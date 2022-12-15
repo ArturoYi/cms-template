@@ -4,12 +4,12 @@ export const groupRouter: RouteRecordRaw[] = [
 	{
 		path: "/group",
 		// component: () => import("@/views/group/group-list.vue"),
-		redirect: "/group/index",
+		redirect: "/group/group-list",
 		name: "indx-1",
 		meta: {
 			elIcon: "CirclePlus",
 			title: "权限管理",
-			roles: [],
+			// roles: ["管理员"],
 			permissions: ["管理员"]
 		},
 		children: [

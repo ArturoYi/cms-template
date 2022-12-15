@@ -2,7 +2,8 @@
 import { getCurrentInstance, onMounted, ref, watch } from "vue";
 import { RouteRecordRaw, useRoute, useRouter } from "vue-router";
 import { ITagView, useTagsViewStore } from "@/store/modules/tags-view";
-import { useRolesStore } from "@/store/modules/roles";
+// import { useStore } from "@/store/modules/roles";
+import { usePermissionStore } from "@/store/modules/permission";
 import ScrollPane from "./ScrollPane.vue";
 import path from "path-browserify";
 import { Close } from "@element-plus/icons-vue";
@@ -11,7 +12,7 @@ const instance = getCurrentInstance();
 const router = useRouter();
 const route = useRoute();
 const tagsViewStore = useTagsViewStore();
-const rolesStore = useRolesStore();
+const permissromStore = usePermissionStore();
 
 const visible = ref(false);
 const top = ref(0);
@@ -50,7 +51,7 @@ const filterAffixTags = (routes: RouteRecordRaw[], basePath = "/") => {
 };
 
 const initTags = () => {
-	affixTags = filterAffixTags(rolesStore.routes);
+	affixTags = filterAffixTags(permissromStore.routes);
 	for (const tag of affixTags) {
 		// 必须含有 name 属性
 		if (tag.name) {

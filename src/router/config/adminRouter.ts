@@ -9,7 +9,7 @@ export const adminRouter: RouteRecordRaw[] = [
 		meta: {
 			elIcon: "CirclePlus",
 			title: "管理员",
-			roles: [],
+			// roles: ["管理员"],
 			permissions: ["管理员"]
 		},
 		children: [

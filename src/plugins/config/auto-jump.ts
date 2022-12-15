@@ -7,7 +7,7 @@ export default {
 			if (userStore.logined) {
 				userStore.loginOut();
 			}
-		}, 5000);
+		}, 8 * 60 * 60 * 1000);
 		app.config.globalProperties.$cms_jump = () => {
 			clearInterval(app.config.globalProperties.$cms_jump_time);
 			app.config.globalProperties.$cms_jump_time = setTimeout(() => {

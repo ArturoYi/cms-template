@@ -8,8 +8,7 @@ export const userRouter: RouteRecordRaw[] = [
 		meta: {
 			elIcon: "CirclePlus",
 			title: "用户管理员",
-			roles: [],
-			permissions: []
+			permissions: ["用戶管理"]
 		},
 		children: [
 			{

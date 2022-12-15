@@ -3,8 +3,7 @@ import { computed } from "vue";
 import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 import { useAppStore } from "@/store/modules/app";
-// import { usePermissionStore } from "@/store/modules/permission";
-import { useRolesStore } from "@/store/modules/roles";
+import { usePermissionStore } from "@/store/modules/permission";
 import SidebarItemVue from "./SidebarItem.vue";
 import { useSettingsStore } from "@/store/modules/settings";
 import SidebarLogo from "@/layout/components/SideBar/SidebarLogo.vue";
@@ -15,8 +14,7 @@ import SidebarLogo from "@/layout/components/SideBar/SidebarLogo.vue";
 // 逻辑
 const route = useRoute();
 const appStore = useAppStore();
-// const permissionStore = usePermissionStore();
-const rolesStore = useRolesStore();
+const permissionStore = usePermissionStore();
 const settingsStore = useSettingsStore();
 const { showSidebarLogo } = storeToRefs(settingsStore);
 // // 记录当前点击路由
@@ -44,7 +42,13 @@ const isCollapse = computed(() => {
 		<SidebarLogo v-if="showSidebarLogo" :collapse="isCollapse" />
 		<el-scrollbar wrap-class="scrollbar-wrapper">
 			<el-menu :default-active="activeMenu" :collapse="isCollapse" :unique-opened="true" :collapse-transition="false" mode="vertical">
-				<SidebarItemVue v-for="route in rolesStore.setRoutes()" :key="route.path" :item="route" :base-path="route.path" :is-collapse="isCollapse" />
+				<SidebarItemVue
+					v-for="route in permissionStore.setRoutes()"
+					:key="route.path"
+					:item="route"
+					:base-path="route.path"
+					:is-collapse="isCollapse"
+				/>
 			</el-menu>
 		</el-scrollbar>
 	</div>

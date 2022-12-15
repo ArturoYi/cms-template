@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useUserStore } from "@/store/modules/user";
-import { useRolesStore } from "@/store/modules/roles";
+import { usePermissionStore } from "@/store/modules/permission";
 import { reactive } from "vue";
 import { Lock, User } from "@element-plus/icons-vue";
 import { ElMessage } from "element-plus";
@@ -14,13 +14,13 @@ const loginForm = reactive({
 });
 
 const userStore = useUserStore();
-const rolesStore = useRolesStore();
+const permissionStore = usePermissionStore();
 // 1000毫秒防抖
 const handleLogin = useThrottleFn(async () => {
 	if (loginForm.username !== "" && loginForm.password !== "") {
 		await userStore.login(loginForm);
 		await userStore.setInfo();
-		rolesStore.setRoutes();
+		permissionStore.setRoutes();
 		router.go(0);
 		ElMessage({
 			showClose: true,
