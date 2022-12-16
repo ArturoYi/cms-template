@@ -45,7 +45,7 @@ function createService<T>() {
 	return service;
 }
 /** 用于网络请求的实例——自定义config */
-export const service = createService<any>();
+export const service = createService();
 /** 创建请求的方法*/
 export function createRequestFunction(service: AxiosInstance) {
 	return function <T = any>(config: AxiosRequestConfig): Promise<AxiosResponse<resultType<T>, any>> {

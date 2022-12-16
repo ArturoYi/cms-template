@@ -3,6 +3,7 @@ import vue from "@vitejs/plugin-vue";
 import path, { resolve } from "path";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import svgLoader from "vite-svg-loader";
+import viteSentry from "vite-plugin-sentry";
 import UnoCSS from "unocss/vite";
 // 压缩打包
 import viteCompression from "vite-plugin-compression";
@@ -34,6 +35,7 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
 		},
 		//service
 		build: {
+			sourcemap: process.env.NODE_ENV === "production",
 			/** 消除打包大小超过 500kb 警告 */
 			chunkSizeWarningLimit: 2000,
 			/** Vite 2.6.x 以上需要配置 minify: "terser", terserOptions 才能生效 */
@@ -73,6 +75,25 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
 			}),
 			viteCompression({
 				threshold: 1024000 // 对大于 1mb 的文件进行压缩
+			}),
+			/** 錯誤上報**/
+			viteSentry({
+				url: "https://8526c67167814783b6ee1aa43566a6ce@o4504336361848832.ingest.sentry.io/4504336364142592", //服務器地址
+				authToken: "fd3a6d438ca14dc290d518c80a2022efac9b0cec09d34802ae110f176cb3071a", //sentry授权令牌
+				org: "tranbiot", //"组织名称",
+				project: "cms", // "项目名称",
+				release: process.env.SENTRY_VERSION || "0.0.1", //每次必須更改
+				deploy: {
+					env: "production"
+				},
+				setCommits: {
+					auto: true
+				},
+				sourceMaps: {
+					include: ["./dist/assets"],
+					ignore: ["node_modules"],
+					urlPrefix: "~/assets"
+				}
 			})
 		]
 	};
