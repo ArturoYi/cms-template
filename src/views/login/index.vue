@@ -6,6 +6,8 @@ import { Lock, User } from "@element-plus/icons-vue";
 import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
 import { useThrottleFn } from "@vueuse/core";
+import Admin from "@/api/module/admin/admin";
+import { setAccessToken, setRefreshToken } from "@/utils/cache/localStorage";
 const router = useRouter();
 
 const loginForm = reactive({
@@ -18,10 +20,13 @@ const permissionStore = usePermissionStore();
 // 1000毫秒防抖
 const handleLogin = useThrottleFn(async () => {
 	if (loginForm.username !== "" && loginForm.password !== "") {
-		await userStore.login(loginForm);
-		await userStore.setInfo();
-		permissionStore.setRoutes();
-		router.go(0);
+		const tokenRes = await Admin.getToken(loginForm);
+		setAccessToken(tokenRes.data.access_token);
+		setRefreshToken(tokenRes.data.refresh_token);
+		const userRes = await Admin.getInfo();
+		await userStore.setInfo(userRes.data);
+		permissionStore.setRoutes(userRes.data.permissions);
+		router.push("/");
 		ElMessage({
 			showClose: true,
 			message: "登录成功",

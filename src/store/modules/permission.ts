@@ -3,19 +3,22 @@ import store from "@/store";
 import { defineStore } from "pinia";
 import { useUserStore } from "./user";
 import type { RouteLocationNormalized, RouteRecordRaw } from "vue-router";
-import allRouter from "@/router/config/index";
+// import allRouter from "@/router/config/index";
+import router from "@/router";
+// 引入所有動態路由
+import homeRouter from "@/router/permission/home-router";
+// 解決獲取不了對象key的問題
 function isValidKey(key: string | number | symbol, object: object): key is keyof typeof object {
 	return key in object;
 }
-
 interface permissionsChild {
 	module: string;
 	permission: string;
 }
-type permissions = {
+interface permissions {
 	module: string;
 	permission: permissionsChild;
-};
+}
 
 export const getPermissionRoleGroup = (permissions: permissions[]): string[] => {
 	const permission: string[] = []; //permission权限
@@ -89,32 +92,34 @@ export const filterAsyncRoutes = (routes: RouteRecordRaw[], permission: permissi
 export const usePermissionStore = defineStore("Permission", () => {
 	const routes = ref<RouteRecordRaw[]>([]);
 	const dynamicRoutes = ref<RouteRecordRaw[]>([]);
-	const getRoutes = (admin: boolean, permission: permissions[]) => {
-		let accessedRoutes;
-		if (admin) {
-			accessedRoutes = allRouter;
-		} else {
-			accessedRoutes = filterAsyncRoutes(allRouter, permission);
-		}
-		routes.value = accessedRoutes;
-		dynamicRoutes.value = accessedRoutes;
-		return accessedRoutes;
-	};
-	const setRoutes = () => {
-		if (!useUserStore().logined) {
-			useUserStore().setInfo();
-		}
+	// const getRoutes = (admin: boolean, permission: permissions[]) => {
+	// 	let accessedRoutes;
+	// 	if (admin) {
+	// 		accessedRoutes = homeRouter;
+	// 	} else {
+	// 		accessedRoutes = filterAsyncRoutes(homeRouter, permission);
+	// 	}
+	// 	routes.value = accessedRoutes;
+	// 	dynamicRoutes.value = accessedRoutes;
+	// 	return accessedRoutes;
+	// };
+	const setRoutes = (permission: permissions[]) => {
+		console.log(router);
 		let accessedRoutes;
 		if (useUserStore().userinfo.admin) {
-			accessedRoutes = allRouter;
+			accessedRoutes = homeRouter;
 		} else {
-			accessedRoutes = filterAsyncRoutes(allRouter, useUserStore().userinfo.permissions);
+			accessedRoutes = filterAsyncRoutes(homeRouter, permission);
 		}
 		routes.value = accessedRoutes;
 		dynamicRoutes.value = accessedRoutes;
+		accessedRoutes.forEach((item) => {
+			router.addRoute(item);
+		});
+		console.log(router.getRoutes());
 		return accessedRoutes;
 	};
-	return { routes, dynamicRoutes, getRoutes, setRoutes };
+	return { routes, dynamicRoutes, setRoutes };
 });
 
 /** 在 setup 外使用 */

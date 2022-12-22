@@ -43,7 +43,7 @@ const isCollapse = computed(() => {
 		<el-scrollbar wrap-class="scrollbar-wrapper">
 			<el-menu :default-active="activeMenu" :collapse="isCollapse" :unique-opened="true" :collapse-transition="false" mode="vertical">
 				<SidebarItemVue
-					v-for="route in permissionStore.setRoutes()"
+					v-for="route in permissionStore.dynamicRoutes"
 					:key="route.path"
 					:item="route"
 					:base-path="route.path"

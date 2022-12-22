@@ -1,7 +1,7 @@
 import * as Sentry from "@sentry/vue";
 import { BrowserTracing } from "@sentry/tracing";
 import type { App } from "vue";
-import Logger from "@/utils/console/index";
+// import Logger from "@/utils/console/index";
 import router from "@/router";
 
 export function sentryInit(app: App) {
@@ -22,10 +22,10 @@ export function sentryInit(app: App) {
 	});
 
 	// You can do the same thing using `addGlobalEventProcessor`
-	Sentry.addGlobalEventProcessor(function (event, hint) {
-		// Add anything to the event here
-		// returning `null` will drop the event
-		Logger.error({ event, hint }, "sentry捕獲");
-		return event;
-	});
+	// Sentry.addGlobalEventProcessor(function (event, hint) {
+	// 	// Add anything to the event here
+	// 	// returning `null` will drop the event
+	// 	Logger.error({ event, hint }, "sentry捕獲");
+	// 	return event;
+	// });
 }

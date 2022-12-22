@@ -1,8 +1,9 @@
 import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
 import type { RouteRecordRaw } from "vue-router";
 const Layout = () => import("@/layout/index.vue");
-import homeRouter from "@/router/permission/home-router";
-
+// import homeRouter from "@/router/permission/home-router";
+// import { useUserStore } from "@/store/modules/user";
+// console.log(useUserStore().userinfo);
 /**基本路由 */
 export const baseRouter: RouteRecordRaw[] = [
 	{
@@ -33,8 +34,8 @@ export const baseRouter: RouteRecordRaw[] = [
 					affix: true
 					// permissions: []
 				}
-			},
-			...homeRouter
+			}
+			// ...homeRouter
 		]
 	},
 	{
