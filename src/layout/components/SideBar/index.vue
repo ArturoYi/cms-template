@@ -3,7 +3,7 @@ import { computed } from "vue";
 import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 import { useAppStore } from "@/store/modules/app";
-import { usePermissionStore } from "@/store/modules/permission";
+import { useUserStore } from "@/store/modules/user";
 import SidebarItemVue from "./SidebarItem.vue";
 import { useSettingsStore } from "@/store/modules/settings";
 import SidebarLogo from "@/layout/components/SideBar/SidebarLogo.vue";
@@ -14,7 +14,7 @@ import SidebarLogo from "@/layout/components/SideBar/SidebarLogo.vue";
 // 逻辑
 const route = useRoute();
 const appStore = useAppStore();
-const permissionStore = usePermissionStore();
+const userStore = useUserStore();
 const settingsStore = useSettingsStore();
 const { showSidebarLogo } = storeToRefs(settingsStore);
 // // 记录当前点击路由
@@ -42,13 +42,7 @@ const isCollapse = computed(() => {
 		<SidebarLogo v-if="showSidebarLogo" :collapse="isCollapse" />
 		<el-scrollbar wrap-class="scrollbar-wrapper">
 			<el-menu :default-active="activeMenu" :collapse="isCollapse" :unique-opened="true" :collapse-transition="false" mode="vertical">
-				<SidebarItemVue
-					v-for="route in permissionStore.dynamicRoutes"
-					:key="route.path"
-					:item="route"
-					:base-path="route.path"
-					:is-collapse="isCollapse"
-				/>
+				<SidebarItemVue v-for="route in userStore.permission" :key="route.path" :item="route" :base-path="route.path" :is-collapse="isCollapse" />
 			</el-menu>
 		</el-scrollbar>
 	</div>

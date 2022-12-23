@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import router from "@/router";
-import { useAppStore } from "@/store/modules/app";
-import { ref, getCurrentInstance } from "vue";
+// import router from "@/router";
+// import { useAppStore } from "@/store/modules/app";
+import { ref } from "vue";
 import TinymceVue from "@/components/Base/Tinymce/Tinymce.vue";
 import { changeTheme } from "@/hooks/useTheme";
-const ctx = getCurrentInstance();
-const appStore = useAppStore();
+import { useUserStore } from "@/store/modules/user";
+const userStore = useUserStore();
 const handleLogin = () => {
-	router.push({ path: "/login" });
+	userStore.a++;
 };
 const toggleSidebar = () => {
-	appStore.toggleSidebar(false);
+	userStore.$reset();
+	// appStore.toggleSidebar(false);
 };
 const value = ref("");
 
@@ -39,11 +40,10 @@ const options = [
 const changeThemel = () => {
 	changeTheme("#0062ff");
 };
-// eslint-disable-next-line no-undef
-ctx?.appContext.config.globalProperties.$cms_jump();
 </script>
 <template>
 	<div class="app-container">
+		{{ userStore.a }}
 		<el-button type="primary" @click="toggleSidebar">sidebar</el-button>
 		<el-button type="primary" @click="handleLogin">wo</el-button>
 		{{ $t("router.name") }}

@@ -1,13 +1,15 @@
 <template>
-	<div v-loading="loading">
-		<Editor id="uuid" v-if="!switching" v-model="content" :api-key="apiKey" :init="init" />
+	<div>
+		<div v-loading="loading">
+			<Editor id="uuid" v-if="!switching" v-model="content" :api-key="apiKey" :init="init" />
+		</div>
 	</div>
 </template>
-<script lang="ts">
+<!-- <script lang="ts">
 export default {
 	name: "TinymceVue"
 };
-</script>
+</script> -->
 <script setup lang="ts">
 import tinymce from "tinymce/tinymce";
 import Editor from "@tinymce/tinymce-vue";
