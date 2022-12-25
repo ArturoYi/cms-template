@@ -4,7 +4,7 @@ import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse,
 import { getAccessToken, getRefreshToken } from "@/utils/cache/localStorage";
 import { get } from "lodash-es";
 // import { ElMessage } from "element-plus";
-import { responseInterceptors } from "./interceptors/res";
+import { responseInterceptors, errorInterceptors } from "./interceptors/res";
 import { requestInterceptors } from "./interceptors/req";
 import Logger from "@/utils/console/index";
 export interface resultType<T> {
@@ -38,6 +38,7 @@ function createService<T>() {
 			return await responseInterceptors(response);
 		},
 		(error: AxiosError<resultType<any>>) => {
+			error = errorInterceptors(error);
 			Logger.error(error, "響應錯誤", "axios響應攔截");
 			return error;
 		}

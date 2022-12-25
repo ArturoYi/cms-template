@@ -8,6 +8,8 @@ import allRouter from "@/router/config";
 export const useUserStore = defineStore(
 	"user",
 	() => {
+		const access_token = ref("");
+		const refresh_token = ref("");
 		const userinfo = reactive<userinfo>({
 			id: 0,
 			admin: false,
@@ -17,9 +19,11 @@ export const useUserStore = defineStore(
 			permissions: []
 		});
 		const a = ref(1);
+		const logined = ref<boolean>(false);
 		const isRefresh = ref<boolean>(true);
 		//计算路由数组
 		const permission = computed(() => {
+			console.log(allRouter, userinfo.permissions);
 			return filterAsyncRoutes(allRouter, userinfo.permissions);
 		});
 
@@ -31,7 +35,7 @@ export const useUserStore = defineStore(
 			userinfo.email = result.email;
 			userinfo.nickname = result.nickname || "迭名";
 			userinfo.permissions = result.permissions;
-			// logined.value = true;
+			logined.value = true;
 			return true;
 		};
 
@@ -40,16 +44,13 @@ export const useUserStore = defineStore(
 			localStorage.clear();
 			router.push({ path: "/login", replace: true });
 		};
-		//虽然可以直接使用pinia获取上面的职，但是习惯还是写两个get和set方法调用
-		/** 设置角色数组 */
-		/** 設置用戶信息*/
-		return { userinfo, permission, isRefresh, a, setInfo, loginOut };
+		return { userinfo, permission, isRefresh, a, refresh_token, access_token, setInfo, logined, loginOut };
 	},
 	{
-		persist: {
-			storage: sessionStorage,
-			paths: ["userinfo", "a"]
-		}
+		persist: [
+			// { storage: sessionStorage, paths: ["userinfo", "a"] },
+			{ key: "v3-admin-token", storage: localStorage, paths: ["refresh_token", "access_token"] }
+		]
 	}
 );
 // 初始化数据-这一步不是必须的，甚至hui

@@ -87,7 +87,7 @@
 		"package.json": [
 			"prettier --write"
 		],
-		"{!(package)*.json,.!(browserslist)*rc}": [
+		"{!(package)*.json,.npmrc,.!(browserslist)*rc}": [
 			"prettier --write--parser json"
 		]
 	},

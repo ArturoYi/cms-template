@@ -5,7 +5,8 @@ import { service } from "../index";
 import Admin from "../../module/admin/admin";
 import { setAccessToken, setRefreshToken } from "@/utils/cache/localStorage";
 import { ElMessage } from "element-plus";
-import Logger from "@/utils/console/index";
+// import Logger from "@/utils/console/index";
+import router from "@/router";
 export const responseInterceptors = async <T = any>(response: AxiosResponse<resultType<any>>): Promise<AxiosResponse<resultType<any>, any>> => {
 	const { config, data } = response;
 	const res = await new Promise<AxiosResponse<resultType<any>>>(async (resolve, reject) => {
@@ -30,7 +31,7 @@ export const responseInterceptors = async <T = any>(response: AxiosResponse<resu
 				});
 				return resolve(result);
 			} else {
-				Logger.error(response, response.request, "請求響應攔截");
+				router.push({ path: "/login" });
 				return reject(response);
 			}
 		} else {
@@ -43,5 +44,6 @@ export const responseInterceptors = async <T = any>(response: AxiosResponse<resu
 
 export const errorInterceptors = (config: AxiosError<resultType<any>>): AxiosError<resultType<any>, any> => {
 	// 发现token过期在错误中返回很难处理
+	console.log("异常拦截", config);
 	return config;
 };

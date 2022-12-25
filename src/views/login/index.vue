@@ -6,6 +6,7 @@ import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
 import { useThrottleFn } from "@vueuse/core";
 import Admin from "@/api/module/admin/admin";
+import { resetRouter } from "@/router/index";
 import { setAccessToken, setRefreshToken } from "@/utils/cache/localStorage";
 const router = useRouter();
 
@@ -23,7 +24,22 @@ const handleLogin = useThrottleFn(async () => {
 		setRefreshToken(tokenRes.data.refresh_token);
 		const userRes = await Admin.getInfo();
 		userStore.setInfo(userRes.data);
-		router.push("/");
+		userStore.access_token = "Bearer " + tokenRes.data.access_token;
+		userStore.refresh_token = "Bearer " + tokenRes.data.refresh_token;
+		// 第一次登录手动转载路由
+		if (userStore.isRefresh) {
+			resetRouter();
+			userStore.permission.forEach((item) => {
+				router.addRoute("Layout", item);
+			});
+			userStore.isRefresh = false;
+			router.push({ path: "/dashboard" });
+		}
+		// } else {
+		// 	console.log(userStore.permission);
+		// 	console.log(router.getRoutes());
+		router.push({ path: "/" });
+		// }
 		ElMessage({
 			showClose: true,
 			message: "登录成功",

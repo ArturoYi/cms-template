@@ -8,12 +8,21 @@ export interface tokenresult {
 	refresh_token: string;
 }
 
+interface permissionsChild {
+	module: string;
+	permission: string;
+}
+interface permissions {
+	module: string;
+	permission: permissionsChild;
+}
+
 export interface userinfo {
 	id: number;
 	nickname: string;
 	admin: boolean;
 	avatar: string;
-	permissions: Array<any>;
+	permissions: permissions[];
 	email: string;
 }
 
