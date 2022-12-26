@@ -23,7 +23,6 @@ export const useUserStore = defineStore(
 		const isRefresh = ref<boolean>(true);
 		//计算路由数组
 		const permission = computed(() => {
-			console.log(allRouter, userinfo.permissions);
 			return filterAsyncRoutes(allRouter, userinfo.permissions);
 		});
 

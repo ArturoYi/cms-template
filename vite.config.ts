@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import { loadEnv, ConfigEnv, UserConfigExport } from "vite";
 import vue from "@vitejs/plugin-vue";
 import path, { resolve } from "path";

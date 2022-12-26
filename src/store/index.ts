@@ -6,7 +6,6 @@ store.use(piniaPluginPersistedstate);
 store.use(({ store }) => {
 	const initStore = JSON.parse(JSON.stringify(store.$state));
 	store.$reset = () => {
-		console.log(store.$state);
 		store.$state = JSON.parse(JSON.stringify(initStore));
 	};
 });
