@@ -15,8 +15,8 @@ export default function usePage<T>(options: options) {
 	// 定义分页查询参数
 	const get_list_date = ref<Date>(new Date());
 	const loading = ref<boolean>(true);
-	const page = ref<number>(0);
-	const count = ref<number>(0);
+	const page = ref<number>(1);
+	const count = ref<number>(10);
 	const total = ref<number>(0);
 	/***
 	 *   这里any必须后面判断是否围殴Array类型
@@ -53,13 +53,16 @@ export default function usePage<T>(options: options) {
 			loading.value = false;
 		}, 200);
 	};
-	setTimeout(() => {
-		handleQueryList(), 100;
-	});
+	// setTimeout(() => {
+	// 	handleQueryList(), 100;
+	// });
 	// 监听page变化
-	watch(page, () => {
-		handleQueryList();
+	watch(page, (newVal, oldVal) => {
+		console.log(newVal, oldVal);
+		if (newVal !== oldVal) {
+			handleQueryList();
+		}
 	});
-	watch(get_list_date, () => {});
+	handleQueryList();
 	return { loading, page, count, total, list, table_date, get_list_date, handleQueryList };
 }

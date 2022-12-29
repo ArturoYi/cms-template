@@ -6,6 +6,10 @@
         "allowSyntheticDefaultImports": true
     },
     "include": [
-        "vite.config.ts"
+        "vite.config.ts",
+        "build/**/*.ts"
+    ],
+    "exclude": [
+        "dist"
     ]
 }

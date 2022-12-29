@@ -4,7 +4,7 @@ import { options } from "@/hooks/useTable";
 import { ElMessage, ElMessageBox } from "element-plus";
 import Admin from "@/api/module/admin/admin";
 import EditUser from "./user-edit.vue";
-import { onMounted, reactive, ref } from "vue";
+import { reactive, ref } from "vue"; //onMounted,
 import Logger from "@/utils/console/index";
 import { useRouter } from "vue-router";
 const router = useRouter();
@@ -17,9 +17,6 @@ const params = reactive<options>({
 	}
 });
 const { loading, page, count, total, handleQueryList, table_date } = usePage<any>(params);
-onMounted(async () => {
-	await handleQueryList();
-});
 const getGroupsName = (list: Array<any>) => {
 	let groupResult = "";
 	list.forEach((item, index) => {
