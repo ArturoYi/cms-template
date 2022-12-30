@@ -26,20 +26,20 @@ const show = ref(false);
 
 <style lang="scss" scoped>
 .handle-button {
+	display: flex;
 	position: absolute;
 	top: v-bind(buttontop);
 	right: 0;
 	z-index: 10;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	border-radius: 6px 0 0 6px !important;
 	width: 48px;
 	height: 48px;
 	font-size: 24px;
-	color: #ffffff;
+	color: #fff;
 	background-color: var(--v3-rightpanel-button-bg-color);
 	cursor: pointer;
 	pointer-events: auto;
+	justify-content: center;
+	align-items: center;
 }
 </style>

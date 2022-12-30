@@ -186,13 +186,13 @@ onMounted(() => {
 	border-bottom: 1px solid #d8dce5;
 	width: 100%;
 	height: var(--v3-tagsview-height);
-	background-color: #ffffff;
+	background-color: #fff;
 	box-shadow: 0 1px 3px 0 #00000010, 0 0 3px 0 #00000010;
 
 	.tags-view-wrapper {
 		.tags-view-item {
-			position: relative;
 			display: inline-block;
+			position: relative;
 			margin-top: 4px;
 			margin-left: 5px;
 			border: 1px solid var(--v3-tagsview-tag-border-color);
@@ -200,10 +200,10 @@ onMounted(() => {
 			padding: 0 8px;
 			height: 26px;
 			font-size: 12px;
+			line-height: 26px;
 			color: var(--v3-tagsview-tag-text-color);
 			background-color: var(--v3-tagsview-tag-bg-color);
 			cursor: pointer;
-			line-height: 26px;
 
 			&:first-of-type {
 				margin-left: 5px;
@@ -219,8 +219,8 @@ onMounted(() => {
 				background-color: var(--v3-tagsview-tag-active-bg-color);
 
 				&::before {
-					position: relative;
 					display: inline-block;
+					position: relative;
 					margin-right: 2px;
 					border-radius: 50%;
 					width: 8px;
@@ -232,8 +232,8 @@ onMounted(() => {
 
 			.el-icon {
 				margin: 0 2px;
-				vertical-align: middle;
 				border-radius: 50%;
+				vertical-align: middle;
 
 				&:hover {
 					color: var(--v3-tagsview-tag-icon-hover-color);
@@ -244,6 +244,7 @@ onMounted(() => {
 	}
 
 	.contextmenu {
+		list-style-type: none;
 		position: absolute;
 		z-index: 3000;
 		margin: 0;
@@ -251,10 +252,9 @@ onMounted(() => {
 		padding: 5px 0;
 		font-size: 12px;
 		font-weight: 400;
-		color: #333333;
-		background-color: #ffffff;
+		color: #333;
+		background-color: #fff;
 		box-shadow: 2px 2px 3px 0 #00000030;
-		list-style-type: none;
 
 		li {
 			margin: 0;
@@ -262,7 +262,7 @@ onMounted(() => {
 			cursor: pointer;
 
 			&:hover {
-				background-color: #eeeeee;
+				background-color: #eee;
 			}
 		}
 	}

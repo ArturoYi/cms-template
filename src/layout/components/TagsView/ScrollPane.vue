@@ -71,11 +71,11 @@ const scrollTo = (direction: "left" | "right") => {
 		cursor: pointer;
 
 		&.left {
-			box-shadow: 5px 0 5px -6px #cccccc;
+			box-shadow: 5px 0 5px -6px #ccc;
 		}
 
 		&.right {
-			box-shadow: -5px 0 5px -6px #cccccc;
+			box-shadow: -5px 0 5px -6px #ccc;
 		}
 	}
 

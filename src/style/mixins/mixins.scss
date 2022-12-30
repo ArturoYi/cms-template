@@ -2,25 +2,25 @@
 // @import "@/style/theme/index";
 @mixin clearfix {
 	&::after {
-		content: "";
 		display: table;
 		clear: both;
+		content: "";
 	}
 }
 
 // 文字溢出隐藏
 @mixin showline($line: 2) {
 	overflow: hidden;
-	text-overflow: ellipsis;
 	white-space: nowrap;
+	text-overflow: ellipsis;
 	-webkit-line-clamp: $line;
 	-webkit-box-orient: vertical;
 }
 
 // 鼠标悬停
 @mixin ishover {
-	cursor: pointer;
 	color: $font-color;
+	cursor: pointer;
 
 	&:hover {
 		color: $active-font-color;

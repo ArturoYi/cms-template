@@ -11,9 +11,9 @@ useResize();
 
 const classObj = computed(() => {
 	return {
-		hideSidebar: !appStore.sidebar.opened,
-		openSidebar: appStore.sidebar.opened,
-		withoutAnimation: appStore.sidebar.withoutAnimation,
+		"hide-sidebar": !appStore.sidebar.opened,
+		"open-sidebar": appStore.sidebar.opened,
+		"without-animation": appStore.sidebar.withoutAnimation,
 		mobile: appStore.device === DeviceType.Mobile
 	};
 });
@@ -35,7 +35,7 @@ const fixedHeader = computed(() => {
 </script>
 <template>
 	<div :class="classObj" class="app-wrapper">
-		<div v-if="classObj.mobile && classObj.openSidebar" class="drawer-bg" @click="handleClickOutside" />
+		<div v-if="classObj.mobile && classObj['open-sidebar']" class="drawer-bg" @click="handleClickOutside" />
 		<Sidebar class="sidebar-container" />
 		<div :class="{ 'has-tags-view': showTagsView }" class="main-container">
 			<div :class="{ 'fixed-header': fixedHeader }">
@@ -66,7 +66,7 @@ const fixedHeader = computed(() => {
 	z-index: 999;
 	width: 100%;
 	height: 100%;
-	background-color: #000000;
+	background-color: #000;
 	opacity: 0.3;
 }
 
@@ -78,12 +78,12 @@ const fixedHeader = computed(() => {
 }
 
 .sidebar-container {
+	overflow: hidden;
 	position: fixed;
 	top: 0;
 	bottom: 0;
 	left: 0;
 	z-index: 1001;
-	overflow: hidden;
 	width: var(--v3-sidebar-width) !important;
 	height: 100%;
 	font-size: 0;
@@ -99,7 +99,7 @@ const fixedHeader = computed(() => {
 	transition: width 0.28s;
 }
 
-.hideSidebar {
+.hide-sidebar {
 	.main-container {
 		margin-left: var(--v3-sidebar-hide-width);
 	}
@@ -113,7 +113,7 @@ const fixedHeader = computed(() => {
 	}
 }
 
-.withoutAnimation {
+.without-animation {
 	.sidebar-container,
 	.main-container {
 		transition: none;
@@ -131,16 +131,16 @@ const fixedHeader = computed(() => {
 		transition: transform 0.28s;
 	}
 
-	&.openSidebar {
+	&.open-sidebar {
 		position: fixed;
 		top: 0;
 	}
 
-	&.hideSidebar {
+	&.hide-sidebar {
 		.sidebar-container {
-			pointer-events: none;
 			transition-duration: 0.3s;
 			transform: translate3d(calc(0px - var(--v3-sidebar-width)), 0, 0);
+			pointer-events: none;
 		}
 	}
 

@@ -54,7 +54,7 @@ const toggleSidebar = () => {
 .navigation-bar {
 	overflow: hidden;
 	height: var(--v3-navigationbar-height);
-	background: #ffffff;
+	background: #fff;
 
 	.hamburger {
 		display: flex;

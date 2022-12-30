@@ -2,6 +2,7 @@
 import { loadEnv, ConfigEnv, UserConfigExport } from "vite";
 import { resolve } from "path";
 const Timestamp = new Date().getTime();
+import autoprefixr from "autoprefixer";
 // @ts-ignore
 import { getPluginsList } from "./build/plugins";
 // @ts-ignore
@@ -37,7 +38,13 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
 			include,
 			exclude
 		},
-		//service
+		// css和其插件配置
+		css: {
+			postcss: {
+				plugins: [autoprefixr]
+			}
+		},
+		//打包操作
 		build: {
 			sourcemap: process.env.NODE_ENV === "production",
 			/** 消除打包大小超过 500kb 警告 */

@@ -96,18 +96,18 @@ const goCenter = () => {
 	// w-120 h-70
 
 	.user-option-top {
-		color: aliceblue;
-		background-size: 100% 100%;
-		border-top-right-radius: 8px;
 		border-top-left-radius: 8px;
+		border-top-right-radius: 8px;
+		color: aliceblue;
 		background-image: url("../../assets/layout/user-bg.png");
+		background-size: 100% 100%;
 
 		.item-nickname {
 			padding-left: 18px;
 			height: 30px;
 			font-size: 16px;
-			text-align: left;
 			line-height: 30px;
+			text-align: left;
 		}
 	}
 
@@ -136,9 +136,9 @@ const goCenter = () => {
 		width: 45px !important;
 		height: 15px !important;
 		background: none !important;
-		background-size: 100% 100%;
 		background-color: none !important;
 		background-image: url("../../assets/layout/corner.png") !important;
+		background-size: 100% 100%;
 		transform: none !important;
 	}
 }

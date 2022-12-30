@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 pnpm-lock.yml
+report.html
 
 # Editor directories and files
 .vscode/*

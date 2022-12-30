@@ -26,13 +26,13 @@ const props = defineProps({
 </template>
 <style scoped lang="scss">
 .sidebar-logo-container {
-	position: relative;
 	overflow: hidden;
+	position: relative;
 	width: 100%;
 	height: var(--v3-header-height);
+	line-height: var(--v3-header-height);
 	text-align: center;
 	background-color: var(--v3-sidebarlogo-bg-color);
-	line-height: var(--v3-header-height);
 
 	.sidebar-logo {
 		display: none;

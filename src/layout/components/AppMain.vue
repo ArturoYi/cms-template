@@ -17,8 +17,8 @@ const key = computed(() => {
 </template>
 <style scoped lang="scss">
 .app-main {
-	position: relative;
 	overflow: hidden !important;
+	position: relative;
 	width: 100%;
 	min-height: calc(100vh - var(--v3-navigationbar-height));
 }

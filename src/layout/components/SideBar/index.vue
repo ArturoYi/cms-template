@@ -51,13 +51,13 @@ const isCollapse = computed(() => {
 <style lang="scss" scoped>
 @mixin tip-line {
 	&::before {
-		content: "";
 		position: absolute;
 		top: 0;
 		left: 0;
 		width: 2px;
 		height: 100%;
 		background-color: var(--v3-sidebar-menu-tip-line-bg-color);
+		content: "";
 	}
 }
 
