@@ -7,7 +7,7 @@ export default {
 import { Loader, LoaderOptions } from "@googlemaps/js-api-loader";
 import { ref, onMounted, computed, onUnmounted } from "vue";
 import { useGeolocation } from "./utils/useGeolocation";
-const GOOGLE_MAPS_API_KEY = "AIzaSyDTd9W2s5C366LS7hn_olaIYOAT4ggk_yo";
+const GOOGLE_MAPS_API_KEY = "";
 const { coords } = useGeolocation();
 const currPos = computed(() => ({
 	lat: coords.value.latitude,
